@@ -1,14 +1,17 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:salon_app/providers/loggedinprovider.dart';
 import 'package:salon_app/screen/about_screen.dart';
 import 'package:salon_app/screen/contact_us.dart';
 
-class MyDrawer extends StatefulWidget {
+class MyDrawer extends ConsumerStatefulWidget {
   const MyDrawer({super.key});
   @override
-  State<MyDrawer> createState() => _MyDrawerState();
+  ConsumerState<MyDrawer> createState() => _MyDrawerState();
 }
 
-class _MyDrawerState extends State<MyDrawer> {
+class _MyDrawerState extends ConsumerState<MyDrawer> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -55,6 +58,13 @@ class _MyDrawerState extends State<MyDrawer> {
             onTap: () {
               Navigator.push(context,
                   MaterialPageRoute(builder: ((context) => AboutUs())));
+            },
+          ),
+          ListTile(
+            title: Text('Log Out'),
+            onTap: () {
+              ref.read(loggedInProvider.notifier).state = false;
+              FirebaseAuth.instance.signOut();
             },
           ),
         ],
