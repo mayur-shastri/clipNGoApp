@@ -14,7 +14,7 @@ class AuthenticationPage extends StatelessWidget {
           height: 500,
           child: Column(
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 25,
               ),
               Container(
@@ -53,7 +53,7 @@ class AuthenticationPage extends StatelessWidget {
                 ),
               ),
               const Expanded(child: SizedBox()),
-              Text('With ♡ from bytebuilders')
+              const Text('With ♡ from bytebuilders'),
             ],
           ),
         ),

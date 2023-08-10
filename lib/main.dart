@@ -30,7 +30,7 @@ class MainPage extends StatelessWidget {
       home: StreamBuilder(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
-          if (snapshot.hasData) {
+          if (!snapshot.hasData) {
             return Dashboard();
           } else {
             return AuthenticationPage();
