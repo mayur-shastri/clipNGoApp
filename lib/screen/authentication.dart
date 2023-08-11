@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
+import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
+import 'package:salon_app/screen/enter_otp.dart';
+import 'package:salon_app/widgets/standard_button.dart';
 import 'package:salon_app/providers/loggedinprovider.dart';
 
 class AuthenticationPage extends ConsumerStatefulWidget {
@@ -16,8 +17,6 @@ class _AuthenticationPageState extends ConsumerState<AuthenticationPage> {
   final phoneNumber = TextEditingController();
   var pressedLogin = false;
   var otpFieldVisibility = false;
-
-  final otpController = TextEditingController();
 
   var receivedId = '';
 
@@ -38,9 +37,16 @@ class _AuthenticationPageState extends ConsumerState<AuthenticationPage> {
       },
       codeSent: (String verificationId, int? resendToken) {
         receivedId = verificationId;
-        setState(() {
-          otpFieldVisibility = true;
-        });
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (ctx) => EnterOtp(
+                      verifyOTP: verifyOTPCode,
+                    )));
+
+        // setState(() {
+        //   otpFieldVisibility = true;
+        // });
       },
       codeAutoRetrievalTimeout: (String verificationId) {
         print('Timeout.........................');
@@ -48,40 +54,84 @@ class _AuthenticationPageState extends ConsumerState<AuthenticationPage> {
     );
   }
 
-  Future<void> verifyOTPCode() async {
+  Future<void> verifyOTPCode(String otp) async {
     PhoneAuthCredential credential = PhoneAuthProvider.credential(
       verificationId: receivedId,
-      smsCode: otpController.text,
+      smsCode: otp,
     );
     await auth.signInWithCredential(credential).then((value) {
       ref.read(loggedInProvider.notifier).state = true;
     });
+    Navigator.pop(context);
   }
 
+  String _selectedCountryCode = 'IN';
   @override
   Widget build(BuildContext context) {
     var content = pressedLogin
-        ? Column(
-            children: [
-              TextField(
-                controller: phoneNumber,
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  if (otpFieldVisibility) {
-                    verifyOTPCode();
-                  } else {
-                    verifyUserPhoneNumber(phoneNumber.text);
-                  }
-                  FocusManager.instance.primaryFocus?.unfocus();
-                },
-                child: const Text('Continue'),
-              ),
-              if (otpFieldVisibility)
-                TextField(
-                  controller: otpController,
+        ? SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(height: MediaQuery.of(context).size.height * 0.15),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Image.asset(
+                      'asset/images/enter_phone_number.png',
+                      width: 300,
+                    ),
+                  ],
                 ),
-            ],
+                const SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  'Please Enter your Mobile Number',
+                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                      color: Colors.brown),
+                ),
+                const SizedBox(
+                  height: 40,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: IntlPhoneField(
+                    decoration: const InputDecoration(
+                      labelText: 'Phone Number',
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(),
+                      ),
+                    ),
+                    initialCountryCode: _selectedCountryCode,
+                    onCountryChanged: (value) {
+                      setState(() {
+                        _selectedCountryCode = '+${value.dialCode}';
+                      });
+                    },
+                    onChanged: (value) {
+                      setState(() {
+                        _selectedCountryCode = value.countryCode;
+                      });
+                    },
+                    controller: phoneNumber,
+                  ),
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
+                StandardButton(
+                  text: "          Get OTP          ",
+                  onTap: () {
+                    verifyUserPhoneNumber(
+                        _selectedCountryCode + phoneNumber.text);
+                    print(_selectedCountryCode + phoneNumber.text);
+                  },
+                ),
+              ],
+            ),
           )
         : Center(
             child: SizedBox(

@@ -43,6 +43,8 @@ dependencies:
   geocoding: ^2.1.0
   permission_handler: ^10.4.3
   flutter_riverpod: ^2.3.6
+  intl_phone_field: ^3.1.0
+  flutter_otp_text_field: ^1.1.1
 
 dev_dependencies:
   flutter_test:
@@ -69,6 +71,8 @@ flutter:
   assets:
     - asset/images/comb-scissor.png
     - asset/images/man.png
+    - asset/images/enter_phone_number.png
+    - asset/images/enter_otp.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
