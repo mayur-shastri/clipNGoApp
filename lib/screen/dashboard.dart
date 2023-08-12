@@ -91,14 +91,11 @@ class _DashboardState extends State<Dashboard> {
         onIndexChange: _onIndexChanged,
       ),
       drawer: const MyDrawer(),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: _currentIndex == 0
-            ? FirstScreen()
-            : (_currentIndex == 1
-                ? MyFavourites()
-                : (_currentIndex == 2 ? ProfileScreen() : MyBookings())),
-      ),
+      body: _currentIndex == 0
+          ? FirstScreen()
+          : (_currentIndex == 1
+              ? MyFavourites()
+              : (_currentIndex == 2 ? ProfileScreen() : MyBookings())),
     );
   }
 }

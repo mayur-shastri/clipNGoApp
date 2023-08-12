@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import 'package:salon_app/screen/ScreenSwitcher.dart';
-
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -23,7 +20,7 @@ class MainPage extends StatelessWidget {
     colorScheme: ColorScheme.fromSeed(
       seedColor: const Color.fromARGB(255, 197, 134, 39),
     ),
-    textTheme: GoogleFonts.outfitTextTheme(),
+    textTheme: GoogleFonts.ralewayTextTheme(),
   );
   @override
   Widget build(BuildContext context) {

@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:salon_app/screen/enter_otp.dart';
+import 'package:salon_app/providers/mobile_no_provider.dart';
+import 'package:salon_app/screen/authentication/enter_otp.dart';
 import 'package:salon_app/widgets/standard_button.dart';
 import 'package:salon_app/providers/loggedinprovider.dart';
 
@@ -62,7 +63,11 @@ class _AuthenticationPageState extends ConsumerState<AuthenticationPage> {
     await auth.signInWithCredential(credential).then((value) {
       ref.read(loggedInProvider.notifier).state = true;
     });
-    Navigator.pop(context);
+    ref.read(mobileNoProvider.notifier).state =
+        _selectedCountryCode + phoneNumber.text;
+    if (context.mounted) {
+      Navigator.pop(context);
+    }
   }
 
   String _selectedCountryCode = 'IN';

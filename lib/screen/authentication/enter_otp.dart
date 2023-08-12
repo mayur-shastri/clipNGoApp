@@ -5,7 +5,7 @@ import 'package:salon_app/widgets/standard_button.dart';
 
 class EnterOtp extends StatelessWidget {
   EnterOtp({super.key, required this.verifyOTP});
-  String _enteredCode = '';
+  late String _enteredCode;
   Function(String) verifyOTP;
 
   @override
@@ -41,7 +41,7 @@ class EnterOtp extends StatelessWidget {
                 onCodeChanged: (String code) {},
                 //runs when every textfield is filled
                 onSubmit: (code) {
-                  _enteredCode += code;
+                  _enteredCode = code;
                 },
               ),
               const Time(),
@@ -51,7 +51,6 @@ class EnterOtp extends StatelessWidget {
               StandardButton(
                 text: "          Submit OTP         ",
                 onTap: () {
-                  print(_enteredCode);
                   verifyOTP(_enteredCode);
                 },
               ),
