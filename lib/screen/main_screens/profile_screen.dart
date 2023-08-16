@@ -29,7 +29,7 @@ class ProfileScreen extends ConsumerWidget {
               elevation: 20,
               child: CircleAvatar(
                 backgroundImage: NetworkImage(
-                    'https://static.toiimg.com/thumb/msid-62507619,width-1280,resizemode-4/62507619.jpg'),
+                    'https://qph.cf2.quoracdn.net/main-qimg-545d10b66828d3931cd687e4bbb984e3-lq'),
                 radius: MediaQuery.of(context).size.height * 0.089,
               ),
             ),

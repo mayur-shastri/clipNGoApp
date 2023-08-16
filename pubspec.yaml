@@ -45,6 +45,7 @@ dependencies:
   flutter_riverpod: ^2.3.6
   intl_phone_field: ^3.1.0
   flutter_otp_text_field: ^1.1.1
+  url_launcher: ^6.1.12
 
 dev_dependencies:
   flutter_test:
@@ -73,6 +74,9 @@ flutter:
     - asset/images/man.png
     - asset/images/enter_phone_number.png
     - asset/images/enter_otp.png
+    - asset/images/arrow-down.gif
+    - asset/images/Linkedin-logo-png.png
+
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
