@@ -24,7 +24,7 @@ class ProfileScreen extends ConsumerWidget {
               end: Alignment.bottomRight,
             ),
           ),
-          child: ProfieImagePicker(),
+          child: const ProfieImagePicker(),
         ),
         UserDataProfile(
           phoneNumber: mobileNumber,

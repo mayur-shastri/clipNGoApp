@@ -8,7 +8,7 @@ class ContactUs extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(elevation: 1),
       body: Column(children: [
-        SizedBox(
+        const SizedBox(
           height: 20,
         ),
         Text(

@@ -35,13 +35,13 @@ class _MyDrawerState extends ConsumerState<MyDrawer> {
             ),
           ),
           ListTile(
-            title: Text('Profile'),
+            title: const Text('Profile'),
             onTap: () {
               widget.closeDrawer();
             },
           ),
           ListTile(
-            title: Text('Bookings'),
+            title: const Text('Bookings'),
             onTap: () {
               widget.closeDrawer();
             },
@@ -51,20 +51,20 @@ class _MyDrawerState extends ConsumerState<MyDrawer> {
             onTap: () {
               widget.closeDrawer();
               Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
-                return ContactUs();
+                return const ContactUs();
               }));
             },
           ),
           ListTile(
-            title: Text('About'),
+            title: const Text('About'),
             onTap: () {
               widget.closeDrawer();
               Navigator.push(context,
-                  MaterialPageRoute(builder: ((context) => AboutUs())));
+                  MaterialPageRoute(builder: ((context) => const AboutUs())));
             },
           ),
           ListTile(
-            title: Text('Log Out'),
+            title: const Text('Log Out'),
             onTap: () {
               ref.read(loggedInProvider.notifier).state = false;
               FirebaseAuth.instance.signOut();

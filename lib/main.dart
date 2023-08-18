@@ -26,7 +26,7 @@ class MainPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: theme,
-      home: ScreenSwitcher(),
+      home: const ScreenSwitcher(),
     );
   }
 }

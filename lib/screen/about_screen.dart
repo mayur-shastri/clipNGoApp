@@ -61,7 +61,7 @@ class AboutUs extends StatelessWidget {
                         color: Colors.white,
                       ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Image.asset(

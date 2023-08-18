@@ -4,7 +4,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class DevProfile extends StatelessWidget {
-  DevProfile({super.key, required this.DevData});
+  const DevProfile({super.key, required this.DevData});
   final Dev DevData;
   void _launchLinkedInProfile(BuildContext context) async {
     Uri uriLink = Uri.parse(DevData.linkedInLink);

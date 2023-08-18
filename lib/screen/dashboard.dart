@@ -96,10 +96,10 @@ class _DashboardState extends State<Dashboard> {
       ),
       drawer: MyDrawer(closeDrawer: closeDrawer),
       body: _currentIndex == 0
-          ? FirstScreen()
+          ? const FirstScreen()
           : (_currentIndex == 1
-              ? MyFavourites()
-              : (_currentIndex == 2 ? ProfileScreen() : MyBookings())),
+              ? const MyFavourites()
+              : (_currentIndex == 2 ? const ProfileScreen() : const MyBookings())),
     );
   }
 }

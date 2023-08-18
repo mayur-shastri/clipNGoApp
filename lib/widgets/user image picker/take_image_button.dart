@@ -14,7 +14,7 @@ class TakeImageButton extends StatelessWidget {
         width: MediaQuery.of(context).size.height * 0.12,
         child: source == 'camera'
             ? InkWell(
-                child: Column(children: [
+                child: const Column(children: [
                   Icon(
                     Icons.camera,
                     color: Colors.brown,
@@ -27,7 +27,7 @@ class TakeImageButton extends StatelessWidget {
                 onTap: () => takeImage(ImageSource.camera),
               )
             : InkWell(
-                child: Column(children: [
+                child: const Column(children: [
                   Icon(
                     Icons.browse_gallery_sharp,
                     color: Colors.brown,

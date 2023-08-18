@@ -18,10 +18,10 @@ class _MySearchBarState extends State<MySearchBar> {
         controller: _searchBarText,
         decoration: InputDecoration(
           filled: true,
-          fillColor: Color.fromARGB(161, 202, 190, 171),
-          contentPadding: EdgeInsets.all(8),
+          fillColor: const Color.fromARGB(161, 202, 190, 171),
+          contentPadding: const EdgeInsets.all(8),
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
-          prefixIcon: Icon(Icons.search),
+          prefixIcon: const Icon(Icons.search),
           suffixIcon: IconButton(
             icon: const Icon(Icons.mic),
             onPressed: () {},

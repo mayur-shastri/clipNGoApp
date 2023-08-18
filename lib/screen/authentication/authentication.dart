@@ -193,7 +193,7 @@ class _AuthenticationPageState extends ConsumerState<AuthenticationPage> {
           );
     return Scaffold(
       appBar: AppBar(
-        title: Text('Lookin good?'),
+        title: const Text('Lookin good?'),
       ),
       body: content,
     );

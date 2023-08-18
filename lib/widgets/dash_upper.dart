@@ -49,10 +49,10 @@ class _FavSalonMessageState extends State<FavSalonMessage>
                     fontSize: 25,
                   ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
-            MySearchBar(),
+            const MySearchBar(),
           ],
         ),
       ),

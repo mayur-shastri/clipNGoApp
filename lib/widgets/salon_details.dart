@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 class SalonDetails extends StatelessWidget {
-  SalonDetails({super.key, required this.idx, required this.SalonList});
+  const SalonDetails({super.key, required this.idx, required this.SalonList});
   final idx;
   final SalonList;
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: 300,
       child: Stack(
         children: [

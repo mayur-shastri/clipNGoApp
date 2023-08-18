@@ -87,7 +87,7 @@ class _UserDataProfileState extends State<UserDataProfile> {
             subtitle: Text(retrievedUserData['name'] ?? 'Your Name'),
           ),
           ListTile(
-            leading: Icon(Icons.phone),
+            leading: const Icon(Icons.phone),
             title: Text(
               'Mobile Number',
               style: Theme.of(context)
@@ -98,7 +98,7 @@ class _UserDataProfileState extends State<UserDataProfile> {
             subtitle: Text(retrievedUserData['mob-no'] ?? '+00 0000000000'),
           ),
           ListTile(
-            leading: Icon(Icons.email),
+            leading: const Icon(Icons.email),
             title: Text(
               'Email',
               style: Theme.of(context)
@@ -109,7 +109,7 @@ class _UserDataProfileState extends State<UserDataProfile> {
             subtitle: Text(retrievedUserData['email'] ?? 'abc@def.com'),
           ),
           ListTile(
-            leading: Icon(Icons.location_city),
+            leading: const Icon(Icons.location_city),
             title: Text(
               'Address',
               style: Theme.of(context)
@@ -121,7 +121,7 @@ class _UserDataProfileState extends State<UserDataProfile> {
                 Text(retrievedUserData['address'] ?? 'Pune, Australia 799007'),
           ),
           ListTile(
-            leading: Icon(Icons.date_range),
+            leading: const Icon(Icons.date_range),
             title: Text(
               'Age',
               style: Theme.of(context)

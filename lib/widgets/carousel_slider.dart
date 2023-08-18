@@ -35,7 +35,7 @@ class _MyCarouselSliderState extends State<MyCarouselSlider> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       width: MediaQuery.of(context).size.width * 0.88,
       decoration: BoxDecoration(
           border: Border.all(color: Colors.black.withOpacity(0.1)),
@@ -43,8 +43,8 @@ class _MyCarouselSliderState extends State<MyCarouselSlider> {
       child: CarouselSlider(
         options: CarouselOptions(
           autoPlay: true,
-          autoPlayInterval: Duration(seconds: 3),
-          autoPlayAnimationDuration: Duration(milliseconds: 1000),
+          autoPlayInterval: const Duration(seconds: 3),
+          autoPlayAnimationDuration: const Duration(milliseconds: 1000),
           autoPlayCurve: Curves.fastOutSlowIn,
           pauseAutoPlayOnTouch: true,
           aspectRatio: 16 / 9,
@@ -57,7 +57,7 @@ class _MyCarouselSliderState extends State<MyCarouselSlider> {
               return Container(
                 width: MediaQuery.of(context).size.width,
                 margin: const EdgeInsets.symmetric(horizontal: 5.0),
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Colors.transparent,
                 ),
                 child: Image(image: NetworkImage(image)),

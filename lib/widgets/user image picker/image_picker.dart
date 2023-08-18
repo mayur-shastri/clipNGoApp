@@ -1,22 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:salon_app/providers/mobile_no_provider.dart';
+import 'package:salon_app/providers/profile_image_provider.dart';
 import 'package:salon_app/widgets/user%20image%20picker/take_image_button.dart';
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-class ProfieImagePicker extends StatefulWidget {
+class ProfieImagePicker extends ConsumerStatefulWidget {
   const ProfieImagePicker({super.key});
 
   @override
-  State<ProfieImagePicker> createState() => _ProfieImagePickerState();
+  ConsumerState<ProfieImagePicker> createState() => _ProfieImagePickerState();
 }
 
-class _ProfieImagePickerState extends State<ProfieImagePicker> {
+class _ProfieImagePickerState extends ConsumerState<ProfieImagePicker> {
   late ImagePicker picker;
   XFile? _userImage;
   File? savedImage;
   bool loadingImage = true;
+  bool imageUploaded = false;
 
   Future<void> saveImageToDevice(XFile image) async {
     var status = await Permission.storage.status;
@@ -41,7 +45,7 @@ class _ProfieImagePickerState extends State<ProfieImagePicker> {
     print('Image saved to: $savedImagePath');
   }
 
-  Future<void> checkForSavedImage() async {
+  Future<bool> checkForSavedImage() async {
     Directory appDocDir = await getApplicationDocumentsDirectory();
     String savedImagePath = '${appDocDir.path}/saved_image.png';
     File imageFile = File(savedImagePath);
@@ -50,14 +54,27 @@ class _ProfieImagePickerState extends State<ProfieImagePicker> {
         savedImage = imageFile;
         loadingImage = false;
       });
+      return true;
     }
+    return false;
   }
 
   @override
   void initState() {
     super.initState();
     picker = ImagePicker();
-    checkForSavedImage();
+    checkAndSetSavedImage();
+  }
+
+  Future<void> checkAndSetSavedImage() async {
+    bool savedImageExists = await checkForSavedImage();
+    if (savedImageExists && !imageUploaded) {
+      ref.read(profileImageProvider.notifier).state = savedImage!.path;
+      setState(() {
+        imageUploaded = true;
+        print(ref.read(profileImageProvider));
+      });
+    }
   }
 
   void showModalSheet() {

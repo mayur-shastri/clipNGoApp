@@ -6,7 +6,7 @@ class MyFavourites extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
-      children: [Text('This is favourite page')],
+      children: const [Text('This is favourite page')],
     );
   }
 }
