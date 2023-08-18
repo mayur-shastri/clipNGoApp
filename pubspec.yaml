@@ -78,6 +78,7 @@ flutter:
     - asset/images/arrow-down.gif
     - asset/images/Linkedin-logo-png.png
     - asset/images/profile_image_add.png
+    - asset/images/loadingImageGIF.gif
 
   #   - images/a_dot_ham.jpeg
 
