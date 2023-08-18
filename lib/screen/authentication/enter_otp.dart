@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:salon_app/widgets/timer.dart';
-import 'package:salon_app/widgets/standard_button.dart';
 
 class EnterOtp extends StatelessWidget {
-  EnterOtp({super.key, required this.verifyOTP});
-  late String _enteredCode;
-  Function(String) verifyOTP;
+  const EnterOtp({super.key, required this.verifyOTP});
+
+  final Function(String) verifyOTP;
 
   @override
   Widget build(BuildContext context) {
@@ -41,18 +40,12 @@ class EnterOtp extends StatelessWidget {
                 onCodeChanged: (String code) {},
                 //runs when every textfield is filled
                 onSubmit: (code) {
-                  _enteredCode = code;
+                  verifyOTP(code);
                 },
               ),
               const Time(),
               const SizedBox(
                 height: 30,
-              ),
-              StandardButton(
-                text: "          Submit OTP         ",
-                onTap: () {
-                  verifyOTP(_enteredCode);
-                },
               ),
             ],
           ),

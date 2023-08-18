@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:salon_app/widgets/user_data_profile.dart';
 import 'package:salon_app/providers/mobile_no_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:salon_app/widgets/user%20image%20picker/image_picker.dart';
 
 class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({super.key});
@@ -23,17 +24,7 @@ class ProfileScreen extends ConsumerWidget {
               end: Alignment.bottomRight,
             ),
           ),
-          child: Center(
-            child: Card(
-              shape: CircleBorder(),
-              elevation: 20,
-              child: CircleAvatar(
-                backgroundImage: NetworkImage(
-                    'https://qph.cf2.quoracdn.net/main-qimg-545d10b66828d3931cd687e4bbb984e3-lq'),
-                radius: MediaQuery.of(context).size.height * 0.089,
-              ),
-            ),
-          ),
+          child: ProfieImagePicker(),
         ),
         UserDataProfile(
           phoneNumber: mobileNumber,

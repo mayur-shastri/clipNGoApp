@@ -33,6 +33,10 @@ class _DashboardState extends State<Dashboard> {
     _scaffoldKey.currentState?.openDrawer();
   }
 
+  void closeDrawer() {
+    _scaffoldKey.currentState?.closeDrawer();
+  }
+
   void _getLocation() async {
     print('Get location called');
     var permissionStatus = await Permission.locationWhenInUse.request();
@@ -90,7 +94,7 @@ class _DashboardState extends State<Dashboard> {
       bottomNavigationBar: MyBottomNavigationBar(
         onIndexChange: _onIndexChanged,
       ),
-      drawer: const MyDrawer(),
+      drawer: MyDrawer(closeDrawer: closeDrawer),
       body: _currentIndex == 0
           ? FirstScreen()
           : (_currentIndex == 1

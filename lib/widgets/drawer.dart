@@ -6,7 +6,8 @@ import 'package:salon_app/screen/about_screen.dart';
 import 'package:salon_app/screen/contact_us.dart';
 
 class MyDrawer extends ConsumerStatefulWidget {
-  const MyDrawer({super.key});
+  const MyDrawer({super.key, required this.closeDrawer});
+  final Function closeDrawer;
   @override
   ConsumerState<MyDrawer> createState() => _MyDrawerState();
 }
@@ -36,18 +37,19 @@ class _MyDrawerState extends ConsumerState<MyDrawer> {
           ListTile(
             title: Text('Profile'),
             onTap: () {
-              // Handle item 1 tap
+              widget.closeDrawer();
             },
           ),
           ListTile(
             title: Text('Bookings'),
             onTap: () {
-              // Handle item 2 tap
+              widget.closeDrawer();
             },
           ),
           ListTile(
             title: const Text('Contact Us'),
             onTap: () {
+              widget.closeDrawer();
               Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
                 return ContactUs();
               }));
@@ -56,6 +58,7 @@ class _MyDrawerState extends ConsumerState<MyDrawer> {
           ListTile(
             title: Text('About'),
             onTap: () {
+              widget.closeDrawer();
               Navigator.push(context,
                   MaterialPageRoute(builder: ((context) => AboutUs())));
             },
