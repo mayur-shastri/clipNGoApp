@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:salon_app/widgets/user_data_profile.dart';
+import 'package:salon_app/widgets/user%20related/user_data_profile.dart';
 import 'package:salon_app/providers/mobile_no_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:salon_app/widgets/user%20image%20picker/image_picker.dart';
+import 'package:salon_app/widgets/user%20related/image_picker.dart';
 
 class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({super.key});

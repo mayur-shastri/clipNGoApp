@@ -2,29 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:salon_app/widgets/salon_details.dart';
 
 class NearBySalon extends StatefulWidget {
-  const NearBySalon({super.key});
-
+  const NearBySalon({super.key, required this.nearBySalons});
+  final List nearBySalons;
   @override
   State<NearBySalon> createState() => _NearBySalonState();
 }
 
 class _NearBySalonState extends State<NearBySalon> {
-  final SalonList = [
-    {
-      'title': 'Lakme Salon - GreenCircle, VELLORE - FOR HIM AND HER',
-      'salon-image':
-          'https://lh3.googleusercontent.com/p/AF1QipNCOnFzdAQirPOTV630tI2gC6_o4miqn9zYMVE=s1360-w1360-h1020',
-      'reviews': 'stars',
-      'price': '568'
-    },
-    {
-      'title': 'Essensuals by Toni & Guy.',
-      'salon-image':
-          'https://lh3.googleusercontent.com/p/AF1QipNGWF4vKmSHdQvjIJjMvZCEIdhheS6NdkWwN0LN=s1360-w1360-h1020',
-      'reviews': 'stars',
-      'price': '568'
-    },
-  ];
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -43,7 +27,7 @@ class _NearBySalonState extends State<NearBySalon> {
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.2,
             child: ListView.builder(
-              itemCount: SalonList.length,
+              itemCount: widget.nearBySalons.length,
               scrollDirection: Axis.horizontal,
               itemBuilder: (ctx, idx) {
                 return GestureDetector(
@@ -51,7 +35,7 @@ class _NearBySalonState extends State<NearBySalon> {
                   child: Card(
                     child: SalonDetails(
                       idx: idx,
-                      SalonList: SalonList,
+                      SalonList: widget.nearBySalons,
                     ),
                   ),
                 );

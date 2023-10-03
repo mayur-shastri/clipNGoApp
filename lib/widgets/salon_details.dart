@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:salon_app/providers/user_location_provider.dart';
 
-class SalonDetails extends StatelessWidget {
+class SalonDetails extends StatefulWidget {
   const SalonDetails({super.key, required this.idx, required this.SalonList});
   final idx;
   final SalonList;
+
+  @override
+  State<SalonDetails> createState() => _SalonDetailsState();
+}
+
+class _SalonDetailsState extends State<SalonDetails> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -11,7 +19,7 @@ class SalonDetails extends StatelessWidget {
       child: Stack(
         children: [
           Image.network(
-            SalonList[idx]['salon-image'],
+            widget.SalonList[widget.idx]['salon-image'],
             fit: BoxFit.cover,
             width: double.infinity,
           ),
@@ -38,7 +46,7 @@ class SalonDetails extends StatelessWidget {
               child: Column(
                 children: [
                   Text(
-                    SalonList[idx]['title'],
+                    widget.SalonList[widget.idx]['name'],
                     style: const TextStyle(
                       color: Colors.white,
                       fontSize: 18,

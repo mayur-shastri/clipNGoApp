@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:salon_app/widgets/search_bar.dart';
+import 'package:salon_app/widgets/dashboard%20items/search_bar.dart';
 
 class FavSalonMessage extends StatefulWidget {
   const FavSalonMessage({Key? key}) : super(key: key);

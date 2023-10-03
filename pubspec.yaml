@@ -79,6 +79,8 @@ flutter:
     - asset/images/Linkedin-logo-png.png
     - asset/images/profile_image_add.png
     - asset/images/loadingImageGIF.gif
+    - asset/images/hair_cut_gif.gif
+    - asset/images/hair_cut_gif_crop.gif
 
   #   - images/a_dot_ham.jpeg
 

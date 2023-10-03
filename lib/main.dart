@@ -4,9 +4,13 @@ import 'package:salon_app/screen/ScreenSwitcher.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter/services.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]);
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -20,7 +24,7 @@ class MainPage extends StatelessWidget {
     colorScheme: ColorScheme.fromSeed(
       seedColor: const Color.fromARGB(255, 197, 134, 39),
     ),
-    textTheme: GoogleFonts.ralewayTextTheme(),
+    textTheme: GoogleFonts.outfitTextTheme(),
   );
   @override
   Widget build(BuildContext context) {

@@ -29,7 +29,7 @@ class AboutUs extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'About',
+          'Team',
           style: Theme.of(context).textTheme.titleLarge!.copyWith(
                 fontSize: 20,
                 color: Colors.white,

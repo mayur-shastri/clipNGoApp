@@ -9,7 +9,7 @@ class Time extends StatefulWidget {
 }
 
 class _TimeState extends State<Time> {
-  var time = DateTime(2023, 1, 1, 0, 1, 30);
+  var time = DateTime(2023, 1, 1, 0, 0, 30);
   // year, month, date, hours, minutes, seconds
 
   late Timer timer;
@@ -21,7 +21,7 @@ class _TimeState extends State<Time> {
   }
 
   void restartCountdown() {
-    time = DateTime(2023, 1, 1, 0, 1, 30);
+    time = DateTime(2023, 1, 1, 0, 0, 45);
     startCountdown();
   }
 

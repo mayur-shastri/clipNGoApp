@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:salon_app/providers/loggedinprovider.dart';
-import 'package:salon_app/screen/about_screen.dart';
+import 'package:salon_app/screen/main_screens/developer_about.dart';
 import 'package:salon_app/screen/contact_us.dart';
 
 class MyDrawer extends ConsumerStatefulWidget {
@@ -56,7 +56,7 @@ class _MyDrawerState extends ConsumerState<MyDrawer> {
             },
           ),
           ListTile(
-            title: const Text('About'),
+            title: const Text('Developer Team'),
             onTap: () {
               widget.closeDrawer();
               Navigator.push(context,

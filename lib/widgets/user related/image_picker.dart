@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:salon_app/providers/mobile_no_provider.dart';
 import 'package:salon_app/providers/profile_image_provider.dart';
-import 'package:salon_app/widgets/user%20image%20picker/take_image_button.dart';
+import 'package:salon_app/widgets/user%20related/take_image_button.dart';
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
