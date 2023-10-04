@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 class BookingHistoryCard extends StatelessWidget {
   const BookingHistoryCard({super.key, required this.bookingData});
 
-  final bookingData; //it's a map that contains data about a particular booking.
+  final bookingData;
 
   @override
   Widget build(BuildContext context) {
@@ -26,13 +26,11 @@ class BookingHistoryCard extends StatelessWidget {
               height: 10,
             ),
             Align(
-              alignment: Alignment.centerLeft,
-              child: Column(
-                children: [
-                  for (final service in bookingData['services']) Text(service),
-                ],
-              ),
-            ),
+                alignment: Alignment.centerLeft,
+                child: bookingData['services'].length == 1
+                    ? Text(bookingData['services'][0])
+                    : Text(
+                        '${bookingData['services'][0]},${bookingData['services'][1]}...')),
             const SizedBox(
               height: 10,
             ),

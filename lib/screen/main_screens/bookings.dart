@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:salon_app/providers/mobile_no_provider.dart';
 import 'package:salon_app/widgets/user%20related/booking_history_card.dart';
 
 class MyBookings extends ConsumerStatefulWidget {
@@ -17,7 +17,7 @@ class _MyBookingsState extends ConsumerState<MyBookings> {
   void refresh() {
     FirebaseFirestore.instance
         .collection('users')
-        .doc(ref.read(mobileNoProvider))
+        .doc(FirebaseAuth.instance.currentUser!.uid)
         .get()
         .then((value) {
       setState(() {
