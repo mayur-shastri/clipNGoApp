@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:salon_app/widgets/user%20related/modal_sheet_user_data.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class UserDataProfile extends StatefulWidget {
-  const UserDataProfile({super.key, required this.phoneNumber});
-  final String phoneNumber;
+  const UserDataProfile({super.key});
   @override
   State<UserDataProfile> createState() => _UserDataProfileState();
 }
@@ -29,7 +29,10 @@ class _UserDataProfileState extends State<UserDataProfile> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
-        stream: _cloud.collection('users').doc(widget.phoneNumber).snapshots(),
+        stream: _cloud
+            .collection('users')
+            .doc(FirebaseAuth.instance.currentUser!.uid)
+            .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(

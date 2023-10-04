@@ -81,6 +81,12 @@ flutter:
     - asset/images/loadingImageGIF.gif
     - asset/images/hair_cut_gif.gif
     - asset/images/hair_cut_gif_crop.gif
+    - asset/images/haircut_scissors.gif
+    - asset/images/hair spa.gif
+    - asset/images/pedicure.gif
+    - asset/images/manicures.gif
+    - asset/images/hair color.gif
+    - asset/images/body massage.gif
 
   #   - images/a_dot_ham.jpeg
 

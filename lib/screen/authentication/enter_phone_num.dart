@@ -86,10 +86,15 @@ class _EnterPhoneNumState extends ConsumerState<EnterPhoneNum> {
         ref.read(loggedInProvider.notifier).state = true;
       });
 
-      final mobileNo = ref.read(mobileNoProvider.notifier).state;
-      final docSnapshot = await _cloud.collection('users').doc(mobileNo).get();
+      final docSnapshot = await _cloud
+          .collection('users')
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .get();
       if (!docSnapshot.exists) {
-        await _cloud.collection('users').doc(mobileNo).set({
+        await _cloud
+            .collection('users')
+            .doc(FirebaseAuth.instance.currentUser!.uid)
+            .set({
           'name': phoneNumber.text,
           'address': '',
           'email': '',

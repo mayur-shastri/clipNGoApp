@@ -10,9 +10,7 @@ class ScreenList extends StatelessWidget {
           title: Text('Search your nearest salons'),
         ),
         body: Column(
-          children: [
-            Text('Hello'),
-          ],
+          children: [],
         ));
   }
 }
