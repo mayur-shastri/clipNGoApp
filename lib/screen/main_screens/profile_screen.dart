@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:salon_app/widgets/user%20related/user_data_profile.dart';
-import 'package:salon_app/providers/mobile_no_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:salon_app/widgets/user%20related/image_picker.dart';
 
@@ -9,7 +8,6 @@ class ProfileScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final String mobileNumber = ref.read(mobileNoProvider);
     return ListView(
       children: [
         Container(
@@ -26,9 +24,7 @@ class ProfileScreen extends ConsumerWidget {
           ),
           child: const ProfieImagePicker(),
         ),
-        UserDataProfile(
-          phoneNumber: mobileNumber,
-        ),
+        const UserDataProfile(),
       ],
     );
   }
