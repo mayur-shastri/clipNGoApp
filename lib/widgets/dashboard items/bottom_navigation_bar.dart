@@ -26,7 +26,8 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
         BottomNavigationBarItem(
             icon: Icon(Icons.favorite), label: 'Favourites'),
         BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
-        BottomNavigationBarItem(icon: Icon(Icons.event), label: 'Bookings')
+        BottomNavigationBarItem(
+            icon: Icon(Icons.history_rounded), label: 'History')
       ],
       currentIndex: _selectedIndex,
       selectedItemColor: Colors.brown,
