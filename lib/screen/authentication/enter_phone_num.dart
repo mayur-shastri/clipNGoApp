@@ -86,16 +86,17 @@ class _EnterPhoneNumState extends ConsumerState<EnterPhoneNum> {
         ref.read(loggedInProvider.notifier).state = true;
       });
 
-      _cloud
-          .collection('users')
-          .doc(ref.read(mobileNoProvider.notifier).state)
-          .set({
-        'name': phoneNumber.text,
-        'address': '',
-        'email': '',
-        'mob-no': _selectedCountryCode + phoneNumber.text,
-        'age': ''
-      });
+      final mobileNo = ref.read(mobileNoProvider.notifier).state;
+      final docSnapshot = await _cloud.collection('users').doc(mobileNo).get();
+      if (!docSnapshot.exists) {
+        await _cloud.collection('users').doc(mobileNo).set({
+          'name': phoneNumber.text,
+          'address': '',
+          'email': '',
+          'mob-no': _selectedCountryCode + phoneNumber.text,
+          'age': ''
+        });
+      }
       if (context.mounted) {
         Navigator.pop(context);
         Navigator.pop(context);

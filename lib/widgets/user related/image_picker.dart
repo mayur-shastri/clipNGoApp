@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:salon_app/providers/mobile_no_provider.dart';
 import 'package:salon_app/providers/profile_image_provider.dart';
 import 'package:salon_app/widgets/user%20related/take_image_button.dart';
 import 'dart:io';
@@ -19,7 +18,6 @@ class _ProfieImagePickerState extends ConsumerState<ProfieImagePicker> {
   late ImagePicker picker;
   XFile? _userImage;
   File? savedImage;
-  bool loadingImage = true;
   bool imageUploaded = false;
 
   Future<void> saveImageToDevice(XFile image) async {
@@ -52,7 +50,6 @@ class _ProfieImagePickerState extends ConsumerState<ProfieImagePicker> {
     if (await imageFile.exists()) {
       setState(() {
         savedImage = imageFile;
-        loadingImage = false;
       });
       return true;
     }
@@ -72,7 +69,6 @@ class _ProfieImagePickerState extends ConsumerState<ProfieImagePicker> {
       ref.read(profileImageProvider.notifier).state = savedImage!.path;
       setState(() {
         imageUploaded = true;
-        print(ref.read(profileImageProvider));
       });
     }
   }
@@ -116,13 +112,11 @@ class _ProfieImagePickerState extends ConsumerState<ProfieImagePicker> {
 
   @override
   Widget build(BuildContext context) {
-    final content = loadingImage
-        ? const AssetImage('asset/images/loadingImageGIF.gif')
-        : (_userImage != null
-            ? FileImage(File(_userImage!.path))
-            : savedImage != null
-                ? FileImage(savedImage!)
-                : const AssetImage('asset/images/profile_image_add.png'));
+    final content = (_userImage != null
+        ? FileImage(File(_userImage!.path))
+        : savedImage != null
+            ? FileImage(savedImage!)
+            : const AssetImage('asset/images/profile_image_add.png'));
     return Center(
       child: Card(
         shape: const CircleBorder(),
