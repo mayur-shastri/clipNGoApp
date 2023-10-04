@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:salon_app/screen/screen_list.dart';
 
 class MySearchBar extends StatefulWidget {
   const MySearchBar({super.key});
@@ -15,6 +16,10 @@ class _MySearchBarState extends State<MySearchBar> {
       height: 42,
       width: MediaQuery.of(context).size.width * 0.85,
       child: TextField(
+        readOnly: true,
+        onTap: () => Navigator.of(context).push(MaterialPageRoute(
+          builder: (ctx) => const ScreenList(),
+        )),
         controller: _searchBarText,
         decoration: InputDecoration(
           filled: true,
