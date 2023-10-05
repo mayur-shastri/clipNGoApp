@@ -165,7 +165,9 @@ class _DashboardState extends ConsumerState<Dashboard> {
             )
           : (_currentIndex == 1
               ? const MyFavourites()
-              : (_currentIndex == 2 ? const ProfileScreen() : MyBookings())),
+              : (_currentIndex == 2
+                  ? const ProfileScreen()
+                  : const MyBookings())),
     );
   }
 }

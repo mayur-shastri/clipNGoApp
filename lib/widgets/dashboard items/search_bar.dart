@@ -1,25 +1,93 @@
+import 'dart:async';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:salon_app/screen/screen_list.dart';
 
-class MySearchBar extends StatefulWidget {
-  const MySearchBar({super.key});
+List<Map<String, dynamic>> searchResults =
+    []; // a list containing Map<String, dynamic> items
 
+class MySearchBar extends StatefulWidget {
+  const MySearchBar(
+      {super.key, required this.isMainPage, this.onSearchResultsUpdated});
+  final bool isMainPage;
+  final void Function()? onSearchResultsUpdated;
   @override
   State<MySearchBar> createState() => _MySearchBarState();
 }
 
 class _MySearchBarState extends State<MySearchBar> {
   final _searchBarText = TextEditingController();
+  final _focusNode = FocusNode();
+  String? _previousSearchQuery;
+  StreamSubscription<QuerySnapshot>? _searchSubscription;
+
+  @override
+  void dispose() {
+    _focusNode.dispose();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    if (!widget.isMainPage) {
+      // Future.delayed(const Duration(milliseconds: 500), () {
+      //   FocusScope.of(context).requestFocus(_focusNode);
+      // });
+      Future(() {
+        FocusScope.of(context).requestFocus(_focusNode);
+      }); //No delay. keyboard opens immediately.
+    }
+  }
+
+  void updateList(String searchQuery) async {
+    // to make it case insensitive, the document must have
+    // a field that has salon name in lowercase, which can then
+    // be compared with searchQuery.lowercase() in this function.
+    if (searchQuery == _previousSearchQuery) {
+      return;
+    }
+    _previousSearchQuery = searchQuery;
+    searchResults.clear();
+    if (searchQuery == '') {
+      widget.onSearchResultsUpdated!();
+      return;
+    }
+    _searchSubscription?.cancel();
+    _searchSubscription = FirebaseFirestore.instance
+        .collection('dummy_salons')
+        .where('name', isGreaterThanOrEqualTo: searchQuery)
+        .where('name', isLessThan: '${searchQuery}z')
+        .snapshots()
+        .listen((querySnapshot) {
+      searchResults.clear();
+      for (final doc in querySnapshot.docs) {
+        final data = doc.data();
+        searchResults.add(data);
+      }
+      widget.onSearchResultsUpdated!();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 42,
       width: MediaQuery.of(context).size.width * 0.85,
       child: TextField(
-        readOnly: true,
-        onTap: () => Navigator.of(context).push(MaterialPageRoute(
-          builder: (ctx) => const ScreenList(),
-        )),
+        focusNode: _focusNode,
+        onTap: () {
+          if (widget.isMainPage) {
+            _focusNode.unfocus();
+            Navigator.of(context).push(MaterialPageRoute(
+              builder: (ctx) => const ScreenList(),
+            ));
+          }
+        },
+        onChanged: (value) {
+          updateList(value);
+        },
         controller: _searchBarText,
         decoration: InputDecoration(
           filled: true,
