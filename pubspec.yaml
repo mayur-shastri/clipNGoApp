@@ -47,8 +47,9 @@ dependencies:
   flutter_otp_text_field: ^1.1.1
   url_launcher: ^6.1.12
   image_picker: ^1.0.2
-  intl: ^0.17.0
-  flutter_time_slot_picker: ^0.0.9
+  intl: ^0.18.0
+  easy_date_timeline: ^0.1.1
+  time_picker_spinner: ^0.0.1
 dev_dependencies:
   flutter_test:
     sdk: flutter

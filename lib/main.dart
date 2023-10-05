@@ -20,9 +20,12 @@ void main() async {
 class MainPage extends StatelessWidget {
   MainPage({super.key});
   final theme = ThemeData(
+    primarySwatch: Colors.brown,
     useMaterial3: true,
     colorScheme: ColorScheme.fromSeed(
       seedColor: const Color.fromARGB(255, 197, 134, 39),
+      // Define the accentColor property
+      secondary: const Color.fromARGB(255, 197, 134, 39),
     ),
     textTheme: GoogleFonts.outfitTextTheme(),
   );

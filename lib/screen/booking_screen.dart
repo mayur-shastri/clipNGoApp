@@ -18,7 +18,6 @@ class _BookingScreenState extends State<BookingScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     for (var service in widget.SalonDetails['services']) {
       servicesSelected[service] = false;
@@ -29,7 +28,7 @@ class _BookingScreenState extends State<BookingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Booking'),
+        title: const Text('Booking'),
       ),
       body: SingleChildScrollView(
         child: Column(children: [
@@ -83,7 +82,7 @@ class _BookingScreenState extends State<BookingScreen> {
                 const Expanded(
                   child: SizedBox(),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 80,
                   width: 150,
                   child: TimeSlot(),

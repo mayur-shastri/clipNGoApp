@@ -26,28 +26,55 @@ class _ServicesSelectedState extends State<ServicesSelected> {
   void _showServices() async {
     await showDialog(
       context: context,
-      builder: ((context) => AlertDialog(
-            title: Text('Select services'),
-            content: Column(
-                children: widget.SalonDetails['services']
-                    .map((service) {
-                      return Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: MySwitchList(
-                            service: service,
-                            updateServiceSelected: widget.updateServiceSelected,
-                            servicesSelected: widget.servicesSelected),
-                      );
-                    })
-                    .toList()
-                    .cast<Widget>()),
-            actions: [
-              TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: const Text('Done'))
-            ],
+      builder: ((context) => Dialog(
+            child: Padding(
+              padding: const EdgeInsets.all(10),
+              child: Column(
+                children: [
+                  const Expanded(
+                    child: SizedBox(),
+                  ),
+                  Text(
+                    'Select Services',
+                    style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                        fontSize: 21,
+                        color: Colors.brown,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  const Expanded(
+                    child: SizedBox(),
+                  ),
+                  SingleChildScrollView(
+                    child: Column(
+                        children: widget.SalonDetails['services']
+                            .map((service) {
+                              return Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: MySwitchList(
+                                    service: service,
+                                    updateServiceSelected:
+                                        widget.updateServiceSelected,
+                                    servicesSelected: widget.servicesSelected),
+                              );
+                            })
+                            .toList()
+                            .cast<Widget>()),
+                  ),
+                  const Expanded(
+                    child: SizedBox(),
+                  ),
+                  ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child:
+                          const Text('Done', style: TextStyle(fontSize: 16))),
+                  const Expanded(
+                    child: SizedBox(),
+                  ),
+                ],
+              ),
+            ),
           )),
     );
   }

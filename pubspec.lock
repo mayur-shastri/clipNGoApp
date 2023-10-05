@@ -105,6 +105,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.5"
+  easy_date_timeline:
+    dependency: "direct main"
+    description:
+      name: easy_date_timeline
+      sha256: c9495a26486ac1c420224406ce71e4006f1d06a404c6e4c403b6a85be74a4c01
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.1"
   fake_async:
     dependency: transitive
     description:
@@ -243,14 +251,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_time_slot_picker:
-    dependency: "direct main"
-    description:
-      name: flutter_time_slot_picker
-      sha256: ab1773b098a13d32ddb97f5ed63f6529820620bef26a0eb55d73ef652451f024
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.0.9"
   flutter_web_plugins:
     dependency: transitive
     description: flutter
@@ -428,10 +428,10 @@ packages:
     dependency: "direct main"
     description:
       name: intl
-      sha256: "910f85bce16fb5c6f614e117efa303e85a1731bb0081edf3604a2ae6e9a3cc91"
+      sha256: "3bc132a9dbce73a7e4a21a17d06e1878839ffbf975568bc875c60537824b0c4d"
       url: "https://pub.dev"
     source: hosted
-    version: "0.17.0"
+    version: "0.18.1"
   intl_phone_field:
     dependency: "direct main"
     description:
@@ -669,6 +669,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.5.1"
+  time_picker_spinner:
+    dependency: "direct main"
+    description:
+      name: time_picker_spinner
+      sha256: "4e6c2615ace21119262be4cc92f50b379e3db6fc91679371e768ed84240aa700"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.1"
   typed_data:
     dependency: transitive
     description:
