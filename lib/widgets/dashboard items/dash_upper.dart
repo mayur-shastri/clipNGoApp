@@ -52,7 +52,10 @@ class _FavSalonMessageState extends State<FavSalonMessage>
             const SizedBox(
               height: 20,
             ),
-            const MySearchBar(isMainPage: true,),
+            const MySearchBar(
+              isMainPage: true,
+              isFavouritesPage: false,
+            ),
           ],
         ),
       ),

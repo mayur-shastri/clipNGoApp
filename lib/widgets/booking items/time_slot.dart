@@ -10,8 +10,10 @@ class TimeSlot extends StatefulWidget {
 }
 
 class _TimeSlotState extends State<TimeSlot> {
-  DateTime selectedDate = DateTime.now();
-  TimeOfDay selectedTime = TimeOfDay.now();
+  var selectedDateAndTime = DateTime.now();
+  var chosenDate = DateTime.now();
+  var chosenTime = DateTime.now();
+
   @override
   Widget build(BuildContext context) {
     return ElevatedButton.icon(
@@ -39,7 +41,7 @@ class _TimeSlotState extends State<TimeSlot> {
                         child: SizedBox(),
                       ),
                       EasyDateTimeLine(
-                        initialDate: selectedDate,
+                        initialDate: chosenDate,
                         onDateChange: (selectedDate) {
                           if (selectedDate.isBefore(DateTime.now())) {
                             showDialog(
@@ -60,7 +62,7 @@ class _TimeSlotState extends State<TimeSlot> {
                                 });
                           } else {
                             setState(() {
-                              this.selectedDate = selectedDate;
+                              chosenDate = selectedDate;
                             });
                           }
                         },
@@ -104,7 +106,7 @@ class _TimeSlotState extends State<TimeSlot> {
                       ),
                       TimePickerSpinner(
                         locale: const Locale('en', ''),
-                        time: selectedDate,
+                        time: chosenTime,
                         is24HourMode: false,
                         isShowSeconds: false,
                         itemHeight: 50,
@@ -117,7 +119,10 @@ class _TimeSlotState extends State<TimeSlot> {
                             fontWeight: FontWeight.bold),
                         isForce2Digits: true,
                         onTimeChange: (time) {
-                          if (time.isBefore(DateTime.now())) {
+                          if (time.isBefore(
+                            DateTime.now()
+                                .copyWith(second: DateTime.now().second - 1),
+                          )) {
                             showDialog(
                                 context: context,
                                 builder: (ctx) {
@@ -136,7 +141,7 @@ class _TimeSlotState extends State<TimeSlot> {
                                 });
                           } else {
                             setState(() {
-                              selectedDate = time;
+                              chosenTime = time;
                             });
                           }
                         },
@@ -154,6 +159,13 @@ class _TimeSlotState extends State<TimeSlot> {
                           ),
                           TextButton(
                             onPressed: () {
+                              selectedDateAndTime = DateTime(
+                                  chosenDate.year,
+                                  chosenDate.month,
+                                  chosenDate.day,
+                                  chosenTime.hour,
+                                  chosenTime.minute,
+                                  chosenTime.second);
                               Navigator.of(context).pop();
                             },
                             child: const Text('OK'),

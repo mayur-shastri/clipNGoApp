@@ -17,6 +17,7 @@ class _SearchListSResultstate extends State<SearchResultsList> {
         return SearchResultsCard(
           imageURL: widget.latestSearchResults[index]['image'],
           name: widget.latestSearchResults[index]['name'],
+          isSalon: widget.latestSearchResults[index]['isSalon'],
         );
       },
     );

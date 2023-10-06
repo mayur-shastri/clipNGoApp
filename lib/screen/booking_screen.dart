@@ -54,7 +54,20 @@ class _BookingScreenState extends State<BookingScreen> {
                         fontWeight: FontWeight.bold),
                   ),
                 ),
-              )
+              ),
+              Positioned(
+                right: 5,
+                top: 5,
+                child: CircleAvatar(
+                  child: IconButton(
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.favorite,
+                      color: Colors.red,
+                    ),
+                  ),
+                ),
+              ),
             ]),
           ),
           const SizedBox(height: 10),

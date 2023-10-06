@@ -75,7 +75,7 @@ class _MyBookingsState extends ConsumerState<MyBookings> {
                             ),
                           ),
                         ),
-              Text(
+              const Text(
                 'Scroll down to reload bookings',
                 style: TextStyle(
                   color: Colors.grey,
@@ -87,14 +87,11 @@ class _MyBookingsState extends ConsumerState<MyBookings> {
               ),
             ],
           ),
-          if (_isLoading)
-            Positioned.fill(
-              child: Container(
+          if (_isLoading && bookingData != null)
+            const Positioned.fill(
                 child: Center(
-                  child: CircularProgressIndicator(),
-                ),
-              ),
-            ),
+              child: CircularProgressIndicator(),
+            )),
         ],
       ),
     );

@@ -10,7 +10,7 @@ class ScreenList extends StatefulWidget {
 }
 
 class _ScreenListState extends State<ScreenList> {
-  List <Map<String, dynamic>> _searchResults = [];
+  List<Map<String, dynamic>> _searchResults = [];
 
   void _onSearchResultsUpdated() {
     setState(() {
@@ -29,6 +29,7 @@ class _ScreenListState extends State<ScreenList> {
             Center(
               child: MySearchBar(
                   isMainPage: false,
+                  isFavouritesPage: false,
                   onSearchResultsUpdated: _onSearchResultsUpdated),
             ),
             Expanded(
