@@ -4,6 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:salon_app/providers/loggedinprovider.dart';
 import 'package:salon_app/screen/main_screens/developer_about.dart';
 import 'package:salon_app/screen/contact_us.dart';
+import 'package:salon_app/screen/main_screens/history_bookings.dart';
+import 'package:salon_app/screen/main_screens/profile_screen.dart';
 
 class MyDrawer extends ConsumerStatefulWidget {
   const MyDrawer({super.key, required this.closeDrawer});
@@ -37,12 +39,34 @@ class _MyDrawerState extends ConsumerState<MyDrawer> {
           ListTile(
             title: const Text('Profile'),
             onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (ctx) => Scaffold(
+                    appBar: AppBar(
+                      elevation: 1,
+                      title: const Text('Booking History'),
+                    ),
+                    body: const ProfileScreen(),
+                  ),
+                ),
+              );
               widget.closeDrawer();
             },
           ),
           ListTile(
             title: const Text('Bookings'),
             onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (ctx) => Scaffold(
+                    appBar: AppBar(
+                      elevation: 1,
+                      title: const Text('Booking History'),
+                    ),
+                    body: const MyBookings(),
+                  ),
+                ),
+              );
               widget.closeDrawer();
             },
           ),
