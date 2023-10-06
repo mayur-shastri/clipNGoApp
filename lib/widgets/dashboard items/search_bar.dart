@@ -5,6 +5,8 @@ import 'package:salon_app/screen/screen_list.dart';
 
 List<Map<String, dynamic>> searchResults = [];
 
+
+
 class MySearchBar extends StatefulWidget {
   const MySearchBar(
       {super.key,

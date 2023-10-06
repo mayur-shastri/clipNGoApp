@@ -60,8 +60,9 @@ class _MyBookingsState extends ConsumerState<MyBookings> {
                       : Expanded(
                           child: NotificationListener<ScrollNotification>(
                             onNotification: (ScrollNotification scrollInfo) {
-                              if (scrollInfo.metrics.pixels ==
-                                  scrollInfo.metrics.maxScrollExtent) {
+                              if (scrollInfo is ScrollEndNotification &&
+                                  scrollInfo.metrics.pixels ==
+                                      scrollInfo.metrics.maxScrollExtent) {
                                 refresh();
                                 return true;
                               }
