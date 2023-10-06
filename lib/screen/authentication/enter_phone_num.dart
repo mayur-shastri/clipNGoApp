@@ -90,6 +90,10 @@ class _EnterPhoneNumState extends ConsumerState<EnterPhoneNum> {
           .collection('users')
           .doc(FirebaseAuth.instance.currentUser!.uid)
           .get();
+
+      final uidSnapshot =
+          await _cloud.collection('phone-uid').doc(phoneNumber.text).get();
+
       if (!docSnapshot.exists) {
         await _cloud
             .collection('users')
@@ -101,6 +105,12 @@ class _EnterPhoneNumState extends ConsumerState<EnterPhoneNum> {
           'mob-no': _selectedCountryCode + phoneNumber.text,
           'age': ''
         });
+      }
+      if (!uidSnapshot.exists) {
+        await _cloud
+            .collection('phone-uid')
+            .doc(phoneNumber.text)
+            .set({phoneNumber.text: FirebaseAuth.instance.currentUser!.uid});
       }
       if (context.mounted) {
         Navigator.pop(context);
