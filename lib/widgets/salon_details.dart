@@ -18,7 +18,7 @@ class _SalonDetailsState extends State<SalonDetails> {
           context,
           MaterialPageRoute(
               builder: (ctx) => BookingScreen(
-                    SalonDetails: widget.SalonList[widget.idx],
+                    salonDetails: widget.SalonList[widget.idx],
                   ))),
       child: SizedBox(
         width: 300,

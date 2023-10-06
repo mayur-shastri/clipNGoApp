@@ -5,8 +5,8 @@ import 'package:salon_app/widgets/booking items/time_slot_pickers.dart';
 import 'package:intl/intl.dart';
 
 class TimeSlot extends StatefulWidget {
-  const TimeSlot({super.key});
-
+  const TimeSlot({super.key, required this.saveDateTime});
+  final Function(DateTime) saveDateTime;
   @override
   State<TimeSlot> createState() => _TimeSlotState();
 }
@@ -135,6 +135,7 @@ class _TimeSlotState extends State<TimeSlot> {
                                   chosenTime.hour,
                                   chosenTime.minute,
                                   chosenTime.second);
+                              widget.saveDateTime(selectedDateAndTime);
                               Navigator.of(context).pop();
                             },
                             child: const Text('OK'),

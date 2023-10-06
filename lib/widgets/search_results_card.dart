@@ -19,8 +19,8 @@ class SearchResultsCard extends StatelessWidget {
       onTap: () {
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (ctx) => const BookingScreen(
-                SalonDetails: temp), // replace temp with appropriate shit
+            builder: (ctx) => BookingScreen(
+                salonDetails: temp), // replace temp with appropriate shit
           ),
         );
       },

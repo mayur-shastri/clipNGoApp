@@ -4,10 +4,10 @@ import 'package:salon_app/widgets/booking%20items/my_switch_list.dart';
 class ServicesSelected extends StatefulWidget {
   const ServicesSelected(
       {super.key,
-      required this.SalonDetails,
+      required this.salonDetails,
       required this.updateServiceSelected,
       required this.servicesSelected});
-  final SalonDetails;
+  final Map<String, dynamic> salonDetails;
   final Function updateServiceSelected;
   final Map<String, bool> servicesSelected;
   @override
@@ -46,7 +46,7 @@ class _ServicesSelectedState extends State<ServicesSelected> {
                   ),
                   SingleChildScrollView(
                     child: Column(
-                        children: widget.SalonDetails['services']
+                        children: widget.salonDetails['services']
                             .map((service) {
                               return Padding(
                                 padding: const EdgeInsets.all(8.0),
