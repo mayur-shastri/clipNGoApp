@@ -22,7 +22,6 @@ class _MyBookingsState extends ConsumerState<MyBookings> {
         .then((value) {
       setState(() {
         bookingData = value.data()!['pastBookings'];
-        print(bookingData);
       });
     });
   }

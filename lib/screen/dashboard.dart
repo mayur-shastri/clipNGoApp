@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:salon_app/providers/user_location_provider.dart';
-import 'package:salon_app/screen/main_screens/bookings.dart';
+import 'package:salon_app/screen/main_screens/history_bookings.dart';
 import 'package:salon_app/screen/main_screens/favourite.dart';
 import 'package:salon_app/screen/main_screens/first_screen.dart';
 import 'package:salon_app/screen/main_screens/profile_screen.dart';

@@ -9,39 +9,73 @@ class BookingHistoryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      elevation: 2,
       margin: const EdgeInsets.all(10),
+      surfaceTintColor: Colors.brown,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(bookingData['salon_name']),
-                Text(bookingData['booking_id']),
+                Text(
+                  bookingData['salon_name'],
+                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                ),
+                Text(
+                  '₹ ${bookingData['price']}',
+                  style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                      color: Colors.white,
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      backgroundColor: Colors.black.withOpacity(0.65)),
+                ),
               ],
             ),
+            Text('Id: ${bookingData['booking_id']}',
+                style: Theme.of(context).textTheme.labelSmall!.copyWith(
+                      fontSize: 12,
+                      color: Colors.grey,
+                    )),
             const SizedBox(
               height: 10,
             ),
-            Align(
-                alignment: Alignment.centerLeft,
-                child: bookingData['services'].length == 1
-                    ? Text(bookingData['services'][0])
-                    : Text(
-                        '${bookingData['services'][0]},${bookingData['services'][1]}...')),
-            const SizedBox(
-              height: 10,
-            ),
+            // Align(
+            //     alignment: Alignment.centerLeft,
+            //     child: bookingData['services'].length == 1
+            //         ? Text(bookingData['services'][0])
+            //         : Text(
+            //             '${bookingData['services'][0]},${bookingData['services'][1]}...')),
+            // const SizedBox(
+            //   height: 10,
+            // ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(DateFormat('dd/MM/yyyy')
+                Text(DateFormat('EEEE, d/MMM')
                     .format(bookingData['dateTime'].toDate())),
-                Text(bookingData['isSuccess']
-                    ? 'Completed Successfully'
-                    : 'Failed'),
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: bookingData['isSuccess']
+                        ? Colors.lightGreen
+                        : Colors.red,
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                  child: Text(
+                    bookingData['isSuccess'] ? 'Success' : 'Failed',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 12,
+                    ),
+                  ),
+                ),
               ],
             ),
           ],
