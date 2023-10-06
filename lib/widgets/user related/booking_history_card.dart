@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 class BookingHistoryCard extends StatelessWidget {
   const BookingHistoryCard({super.key, required this.bookingData});
 
-  final bookingData;
+  final Map<String, dynamic> bookingData;
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +60,8 @@ class BookingHistoryCard extends StatelessWidget {
                 Text(DateFormat('EEEE, d/MMM')
                     .format(bookingData['dateTime'].toDate())),
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                   decoration: BoxDecoration(
                     color: bookingData['isSuccess']
                         ? Colors.lightGreen
@@ -69,7 +70,7 @@ class BookingHistoryCard extends StatelessWidget {
                   ),
                   child: Text(
                     bookingData['isSuccess'] ? 'Success' : 'Failed',
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
                       fontSize: 12,
