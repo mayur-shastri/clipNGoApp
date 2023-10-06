@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:salon_app/screen/authentication/authentication.dart';
+import 'package:salon_app/screen/authentication/intro_screen.dart';
 import 'package:salon_app/screen/dashboard.dart';
 import 'package:salon_app/providers/loggedinprovider.dart';
 

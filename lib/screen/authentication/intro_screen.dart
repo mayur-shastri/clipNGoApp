@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:salon_app/screen/authentication/enter_phone_num.dart';
+import 'package:salon_app/screen/authentication/authenticate_user.dart';
 
 class AuthenticationPage extends StatefulWidget {
   const AuthenticationPage({super.key});

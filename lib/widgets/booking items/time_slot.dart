@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:time_picker_spinner/time_picker_spinner.dart';
+import 'package:salon_app/widgets/booking items/time_slot_pickers.dart';
+import 'package:intl/intl.dart';
 
 class TimeSlot extends StatefulWidget {
   const TimeSlot({super.key});
@@ -13,6 +15,11 @@ class _TimeSlotState extends State<TimeSlot> {
   var selectedDateAndTime = DateTime.now();
   var chosenDate = DateTime.now();
   var chosenTime = DateTime.now();
+  String _selectedTime = '9:00';
+  void updateSelectedTime(String time) {
+    _selectedTime = time;
+    chosenTime = DateFormat('HH:mm:ss').parse('$time:00');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +50,8 @@ class _TimeSlotState extends State<TimeSlot> {
                       EasyDateTimeLine(
                         initialDate: chosenDate,
                         onDateChange: (selectedDate) {
-                          if (selectedDate.isBefore(DateTime.now())) {
+                          if (selectedDate.isBefore(
+                              DateTime.now().subtract(Duration(days: 1)))) {
                             showDialog(
                                 context: context,
                                 builder: (ctx) {
@@ -101,54 +109,15 @@ class _TimeSlotState extends State<TimeSlot> {
                             .copyWith(
                                 fontWeight: FontWeight.bold, fontSize: 20),
                       ),
-                      const Expanded(
-                        child: SizedBox(),
+                      const SizedBox(
+                        height: 10,
                       ),
-                      TimePickerSpinner(
-                        locale: const Locale('en', ''),
-                        time: chosenTime,
-                        is24HourMode: false,
-                        isShowSeconds: false,
-                        itemHeight: 50,
-                        normalTextStyle: const TextStyle(
-                          fontSize: 16,
+                      Expanded(
+                        flex: 6,
+                        child: TimeSlotPicker(
+                          updateTime: updateSelectedTime,
+                          time: _selectedTime,
                         ),
-                        highlightedTextStyle: const TextStyle(
-                            fontSize: 20,
-                            color: Colors.brown,
-                            fontWeight: FontWeight.bold),
-                        isForce2Digits: true,
-                        onTimeChange: (time) {
-                          if (time.isBefore(
-                            DateTime.now()
-                                .copyWith(second: DateTime.now().second - 1),
-                          )) {
-                            showDialog(
-                                context: context,
-                                builder: (ctx) {
-                                  return AlertDialog(
-                                    title: const Text('Error'),
-                                    content: const Text(
-                                        'Please select a time that is not earlier than now'),
-                                    actions: [
-                                      TextButton(
-                                        onPressed: () =>
-                                            Navigator.of(context).pop(),
-                                        child: const Text('OK'),
-                                      ),
-                                    ],
-                                  );
-                                });
-                          } else {
-                            setState(() {
-                              chosenTime = time;
-                            });
-                          }
-                        },
-                      ),
-                      const Expanded(
-                        flex: 2,
-                        child: SizedBox(),
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,

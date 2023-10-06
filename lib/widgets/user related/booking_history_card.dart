@@ -30,10 +30,9 @@ class BookingHistoryCard extends StatelessWidget {
                 Text(
                   '₹ ${bookingData['price']}',
                   style: Theme.of(context).textTheme.labelMedium!.copyWith(
-                      color: Colors.white,
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                      backgroundColor: Colors.black.withOpacity(0.65)),
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                      ),
                 ),
               ],
             ),

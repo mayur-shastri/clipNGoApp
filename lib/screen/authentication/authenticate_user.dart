@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:salon_app/providers/mobile_no_provider.dart';
-import 'package:salon_app/screen/authentication/enter_otp.dart';
+import 'package:salon_app/screen/authentication/enter_otp_screen.dart';
 import 'package:salon_app/widgets/standard_button.dart';
 import 'package:salon_app/providers/loggedinprovider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
