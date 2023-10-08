@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:salon_app/widgets/booking%20items/services_selected.dart';
 import 'package:salon_app/widgets/booking items/time_slot.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class BookingScreen extends StatefulWidget {
   const BookingScreen({super.key, required this.salonDetails});
@@ -73,7 +74,7 @@ class _BookingScreenState extends State<BookingScreen> {
         final bookingDetails = {
           'salon-id': widget.salonDetails['id'],
           'salon-name': widget.salonDetails['name'],
-          'user-id': 'user-id',
+          'user-id': FirebaseAuth.instance.currentUser!.uid,
           'price': servicesSelected.fold(
               0, (sum, service) => sum + service['price'] as int),
           'services':
@@ -102,9 +103,20 @@ class _BookingScreenState extends State<BookingScreen> {
             'booking-id': [bookingDetails]
           });
         }
-      } catch (e) {
-        print('OOPS');
-        print(e);
+      } on FirebaseException catch (e) {
+        showDialog(
+            context: context,
+            builder: (ctx) {
+              return AlertDialog(
+                title: const Text('Try again later'),
+                content: Text(e.message ?? 'Something went wrong'),
+                actions: [
+                  TextButton(
+                      onPressed: () => Navigator.pop(context),
+                      child: const Text('Okay'))
+                ],
+              );
+            });
       }
     }
   }

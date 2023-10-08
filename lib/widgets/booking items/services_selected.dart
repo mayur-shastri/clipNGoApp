@@ -67,21 +67,21 @@ class _ServicesSelectedState extends State<ServicesSelected> {
   Widget build(BuildContext context) {
     return ElevatedButton.icon(
       onPressed: _showServices,
-      icon: const Icon(Icons.add, color: Colors.white),
+      icon: const Icon(Icons.add),
       label: const Text(
         'Select services',
         textAlign: TextAlign.center,
         style: TextStyle(
           fontSize: 16,
-          fontWeight: FontWeight.bold,
-          color: Colors.white,
+
+          // color: Colors.white,
         ),
       ),
-      style: ElevatedButton.styleFrom(
-        shape: const RoundedRectangleBorder(),
-        shadowColor: Colors.black,
-        backgroundColor: Colors.brown.withOpacity(0.4),
-      ),
+      // style: ElevatedButton.styleFrom(
+      //   shape: const RoundedRectangleBorder(),
+      //   shadowColor: Colors.black,
+      //   backgroundColor: Colors.brown.withOpacity(0.4),
+      // ),
     );
   }
 }
