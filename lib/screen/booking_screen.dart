@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:salon_app/widgets/booking%20items/booked_modal_sheet.dart';
 import 'package:salon_app/widgets/booking%20items/services_selected.dart';
 import 'package:salon_app/widgets/booking items/time_slot.dart';
+import 'package:uuid/uuid.dart';
 
 class BookingScreen extends StatefulWidget {
   BookingScreen({
@@ -126,7 +127,8 @@ class _BookingScreenState extends State<BookingScreen> {
           'services':
               servicesSelected.where((service) => service['selected']).toList(),
           'date-time': selectedDateAndTime,
-          'status': 'pending'
+          'status': 'pending',
+          'uid': const Uuid().v4(),
         };
         final fetchedLists = await FirebaseFirestore.instance
             .collection('current-bookings')
@@ -135,7 +137,7 @@ class _BookingScreenState extends State<BookingScreen> {
 
         if (fetchedLists.exists) {
           final data = fetchedLists.data() as Map<String, dynamic>;
-          data['booking-id'].add(bookingDetails);
+          data[widget.salonDetails['id']].add(bookingDetails);
 
           await FirebaseFirestore.instance
               .collection('current-bookings')
@@ -146,7 +148,7 @@ class _BookingScreenState extends State<BookingScreen> {
               .collection('current-bookings')
               .doc(widget.salonDetails['id'])
               .set({
-            'booking-id': [bookingDetails]
+            widget.salonDetails['id']: [bookingDetails]
           });
         }
         setState(() {

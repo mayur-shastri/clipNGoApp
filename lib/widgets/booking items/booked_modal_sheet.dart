@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -145,6 +146,9 @@ class BookedModalSheet extends StatelessWidget {
           ElevatedButton(
             onPressed: () {
               // cancel logic (remove from firebase collection)...
+              final fetchedListsDocReference = FirebaseFirestore.instance
+                  .collection('current-bookings')
+                  .doc('${salonDetails['id']}');
               showDialog(
                   context: context,
                   builder: (ctx) {
@@ -160,6 +164,15 @@ class BookedModalSheet extends StatelessWidget {
                             child: const Text('No')),
                         TextButton(
                             onPressed: () {
+                              fetchedListsDocReference.update({
+                                '${salonDetails['id']}': [
+                                  {
+                                    'uid': bookingDetails['uid'],
+                                    'status': 'cancelled'
+                                  }
+                                ]
+                              });
+                              print('Successfully cancelled');
                               Navigator.of(context).pop();
                               popSheet(context);
                             },

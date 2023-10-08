@@ -51,6 +51,7 @@ dependencies:
   easy_date_timeline: ^0.1.1
   time_picker_spinner: ^0.0.1
   flutter_inappwebview: ^5.8.0
+  uuid: ^4.1.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
