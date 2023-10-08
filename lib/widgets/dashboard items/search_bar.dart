@@ -41,9 +41,6 @@ class _MySearchBarState extends State<MySearchBar> {
   }
 
   void updateList(String searchQuery) async {
-    // to make it case insensitive, the document must have
-    // a field that has salon name in lowercase, which can then
-    // be compared with searchQuery.lowercase() in this function.
     if (!widget.isFavouritesPage) {
       if (searchQuery == _previousSearchQuery) {
         return;
@@ -56,9 +53,9 @@ class _MySearchBarState extends State<MySearchBar> {
       }
       _searchSubscription?.cancel();
       _searchSubscription = FirebaseFirestore.instance
-          .collection('dummy_salons')
-          .where('name', isGreaterThanOrEqualTo: searchQuery)
-          .where('name', isLessThan: '${searchQuery}z')
+          .collection('email-salons')
+          .where('nameLower', isGreaterThanOrEqualTo: searchQuery.toLowerCase())
+          .where('nameLower', isLessThan: '${searchQuery.toLowerCase()}z')
           .snapshots()
           .listen((querySnapshot) {
         searchResults.clear();

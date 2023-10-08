@@ -15,6 +15,7 @@ class _SearchListSResultstate extends State<SearchResultsList> {
       itemCount: widget.latestSearchResults.length,
       itemBuilder: (ctx, index) {
         return SearchResultsCard(
+          salonDetails: widget.latestSearchResults[index],
           imageURL: widget.latestSearchResults[index]['image'],
           name: widget.latestSearchResults[index]['name'],
           isSalon: widget.latestSearchResults[index]['isSalon'],

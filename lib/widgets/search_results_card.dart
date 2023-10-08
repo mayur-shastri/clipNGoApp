@@ -7,20 +7,22 @@ class SearchResultsCard extends StatelessWidget {
     required this.imageURL,
     required this.name,
     required this.isSalon,
+    required this.salonDetails,
   });
 
   final String imageURL;
   final String name;
   final bool isSalon;
+  final Map<String, dynamic> salonDetails;
   @override
   Widget build(BuildContext context) {
-    const dynamic temp = Map<String, dynamic>; //temporary shit.
     return InkWell(
       onTap: () {
         Navigator.of(context).push(
           MaterialPageRoute(
             builder: (ctx) => BookingScreen(
-                salonDetails: temp), // replace temp with appropriate shit
+              salonDetails: salonDetails,
+            ),
           ),
         );
       },

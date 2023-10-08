@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:easy_date_timeline/easy_date_timeline.dart';
-import 'package:time_picker_spinner/time_picker_spinner.dart';
 import 'package:salon_app/widgets/booking items/time_slot_pickers.dart';
 import 'package:intl/intl.dart';
 
