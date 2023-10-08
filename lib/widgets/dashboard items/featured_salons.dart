@@ -20,20 +20,20 @@ class FeaturedSalons extends StatelessWidget {
                     fontSize: 21,
                     color: Colors.brown),
               ),
-              Expanded(child: SizedBox()),
+              const Expanded(child: SizedBox()),
             ],
           ),
           const SizedBox(
             height: 10,
           ),
           FutureBuilder<QuerySnapshot>(
-            future: FirebaseFirestore.instance.collection('salons').get(),
+            future: FirebaseFirestore.instance.collection('email-salons').get(),
             builder: (context, snapshot) {
               if (snapshot.hasError) {
                 return Text('Error: ${snapshot.error}');
               }
               if (!snapshot.hasData) {
-                return CircularProgressIndicator();
+                return const CircularProgressIndicator();
               }
               final salons =
                   snapshot.data!.docs.map((doc) => doc.data()).toList();

@@ -13,19 +13,19 @@ class FirstScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(
       children: [
-        SizedBox(
+        const SizedBox(
           height: 15,
         ),
-        FavSalonMessage(),
-        SizedBox(
+        const FavSalonMessage(),
+        const SizedBox(
           height: 20,
         ),
-        MyCarouselSlider(),
-        SizedBox(
+        const MyCarouselSlider(),
+        const SizedBox(
           height: 18,
         ),
-        FeaturedSalons(),
-        ServicesGrid(),
+        const FeaturedSalons(),
+        const ServicesGrid(),
         if (nearBySalons.isNotEmpty) NearBySalon(nearBySalons: nearBySalons),
       ],
     );

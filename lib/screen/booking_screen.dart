@@ -12,7 +12,7 @@ class BookingScreen extends StatefulWidget {
 }
 
 class _BookingScreenState extends State<BookingScreen> {
-  Map<String, bool> servicesSelected = {};
+  List<Map> servicesSelected = [];
   DateTime? selectedDateAndTime;
   bool canLeaveScreen = false;
 
@@ -45,12 +45,7 @@ class _BookingScreenState extends State<BookingScreen> {
         },
       );
       return true;
-      ;
     }
-  }
-
-  void updateServiceSelected(String service) {
-    servicesSelected[service] = !servicesSelected[service]!;
   }
 
   void saveDateTime(DateTime date) {
@@ -73,47 +68,69 @@ class _BookingScreenState extends State<BookingScreen> {
               ],
             );
           });
-    }
-    final bookingDetails = {
-      'salon-id': widget.salonDetails['id'],
-      'salon-name': widget.salonDetails['name'],
-      'user-id': 'user-id',
-      'services': servicesSelected.keys
-          .where((key) => servicesSelected[key] == true)
-          .toList(),
-      'date-time': selectedDateAndTime,
-      'status': 'pending'
-    };
-
-    final fetchedLists = await FirebaseFirestore.instance
-        .collection('current-bookings')
-        .doc(widget.salonDetails['id'])
-        .get();
-
-    if (fetchedLists.exists) {
-      final data = fetchedLists.data() as Map<String, dynamic>;
-      data['booking-id'].add(bookingDetails);
-
-      await FirebaseFirestore.instance
-          .collection('current-bookings')
-          .doc(widget.salonDetails['id'])
-          .set(data);
     } else {
-      await FirebaseFirestore.instance
-          .collection('current-bookings')
-          .doc(widget.salonDetails['id'])
-          .set({
-        'booking-id': [bookingDetails]
-      });
+      try {
+        final bookingDetails = {
+          'salon-id': widget.salonDetails['id'],
+          'salon-name': widget.salonDetails['name'],
+          'user-id': 'user-id',
+          'price': servicesSelected.fold(
+              0, (sum, service) => sum + service['price'] as int),
+          'services':
+              servicesSelected.where((service) => service['selected']).toList(),
+          'date-time': selectedDateAndTime,
+          'status': 'pending'
+        };
+        final fetchedLists = await FirebaseFirestore.instance
+            .collection('current-bookings')
+            .doc(widget.salonDetails['id'])
+            .get();
+
+        if (fetchedLists.exists) {
+          final data = fetchedLists.data() as Map<String, dynamic>;
+          data['booking-id'].add(bookingDetails);
+
+          await FirebaseFirestore.instance
+              .collection('current-bookings')
+              .doc(widget.salonDetails['id'])
+              .set(data);
+        } else {
+          await FirebaseFirestore.instance
+              .collection('current-bookings')
+              .doc(widget.salonDetails['id'])
+              .set({
+            'booking-id': [bookingDetails]
+          });
+        }
+      } catch (e) {
+        print('OOPS');
+        print(e);
+      }
     }
+  }
+
+  Future<void> makeServicesList() async {
+    final servicesSnapshot = await FirebaseFirestore.instance
+        .collection('email-salons')
+        .doc(widget.salonDetails['id'])
+        .collection('services')
+        .get();
+    final servicesList =
+        servicesSnapshot.docs.map((doc) => doc.data()).toList();
+    setState(() {
+      servicesSelected = servicesList.map((service) {
+        return {
+          ...service,
+          'selected': false,
+        };
+      }).toList();
+    });
   }
 
   @override
   void initState() {
     super.initState();
-    for (var service in widget.salonDetails['services']) {
-      servicesSelected[service] = false;
-    }
+    makeServicesList();
   }
 
   @override
@@ -126,10 +143,14 @@ class _BookingScreenState extends State<BookingScreen> {
         ),
         body: Column(children: [
           SizedBox(
+            height: MediaQuery.of(context).size.height * 0.3,
             child: Stack(alignment: Alignment.center, children: [
-              Image.network(
-                widget.salonDetails['salon-image'],
-                fit: BoxFit.cover,
+              SizedBox(
+                width: double.infinity,
+                child: Image.network(
+                  widget.salonDetails['image'],
+                  fit: BoxFit.cover,
+                ),
               ),
               Positioned.fill(
                   child: Container(color: Colors.black.withOpacity(0.5))),
@@ -181,7 +202,6 @@ class _BookingScreenState extends State<BookingScreen> {
                   width: 150,
                   child: ServicesSelected(
                     salonDetails: widget.salonDetails,
-                    updateServiceSelected: updateServiceSelected,
                     servicesSelected: servicesSelected,
                   ),
                 ),
@@ -211,7 +231,7 @@ class _BookingScreenState extends State<BookingScreen> {
                     onPressed: () {},
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color.fromARGB(255, 255, 166, 133),
-                      shape: BeveledRectangleBorder(),
+                      shape: const BeveledRectangleBorder(),
                       minimumSize: Size(MediaQuery.of(context).size.width * 0.4,
                           MediaQuery.of(context).size.height * 0.08),
                     ),

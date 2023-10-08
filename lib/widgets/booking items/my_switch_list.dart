@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
 
 class MySwitchList extends StatefulWidget {
-  const MySwitchList(
-      {super.key,
-      required this.service,
-      required this.updateServiceSelected,
-      required this.servicesSelected});
-  final String service;
-  final Function updateServiceSelected;
-  final Map<String, bool> servicesSelected;
+  const MySwitchList({super.key, required this.servicesSelected});
+
+  final Map servicesSelected;
   @override
   State<MySwitchList> createState() => _MySwitchListState();
 }
@@ -16,16 +11,15 @@ class MySwitchList extends StatefulWidget {
 class _MySwitchListState extends State<MySwitchList> {
   @override
   Widget build(BuildContext context) {
+    print(widget.servicesSelected);
     return SwitchListTile(
-      title: Text(widget.service),
-      value: widget.servicesSelected[widget.service]!,
+      title: Text(widget.servicesSelected['name']),
+      value: widget.servicesSelected['selected']!,
       onChanged: (_) {
-        widget.updateServiceSelected(widget.service);
         setState(() {
-          widget.servicesSelected[widget.service] =
-              !widget.servicesSelected[widget.service]!;
+          widget.servicesSelected['selected'] =
+              !widget.servicesSelected['selected']!;
         });
-        widget.updateServiceSelected(widget.service);
       },
     );
   }

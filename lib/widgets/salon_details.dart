@@ -25,7 +25,7 @@ class _SalonDetailsState extends State<SalonDetails> {
         child: Stack(
           children: [
             Image.network(
-              widget.SalonList[widget.idx]['salon-image'],
+              widget.SalonList[widget.idx]['image'],
               fit: BoxFit.cover,
               width: double.infinity,
             ),

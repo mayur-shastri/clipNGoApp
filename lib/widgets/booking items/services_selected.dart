@@ -3,26 +3,14 @@ import 'package:salon_app/widgets/booking%20items/my_switch_list.dart';
 
 class ServicesSelected extends StatefulWidget {
   const ServicesSelected(
-      {super.key,
-      required this.salonDetails,
-      required this.updateServiceSelected,
-      required this.servicesSelected});
+      {super.key, required this.salonDetails, required this.servicesSelected});
   final Map<String, dynamic> salonDetails;
-  final Function updateServiceSelected;
-  final Map<String, bool> servicesSelected;
+  final List<Map> servicesSelected;
   @override
   State<ServicesSelected> createState() => _ServicesSelectedState();
 }
 
 class _ServicesSelectedState extends State<ServicesSelected> {
-  bool showServices = false;
-
-  void _toggleShowServices() {
-    setState(() {
-      showServices = !showServices;
-    });
-  }
-
   void _showServices() async {
     await showDialog(
       context: context,
@@ -46,15 +34,11 @@ class _ServicesSelectedState extends State<ServicesSelected> {
                   ),
                   SingleChildScrollView(
                     child: Column(
-                        children: widget.salonDetails['services']
+                        children: widget.servicesSelected
                             .map((service) {
                               return Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: MySwitchList(
-                                    service: service,
-                                    updateServiceSelected:
-                                        widget.updateServiceSelected,
-                                    servicesSelected: widget.servicesSelected),
+                                child: MySwitchList(servicesSelected: service),
                               );
                             })
                             .toList()
@@ -83,8 +67,8 @@ class _ServicesSelectedState extends State<ServicesSelected> {
   Widget build(BuildContext context) {
     return ElevatedButton.icon(
       onPressed: _showServices,
-      icon: Icon(Icons.add, color: Colors.white),
-      label: Text(
+      icon: const Icon(Icons.add, color: Colors.white),
+      label: const Text(
         'Select services',
         textAlign: TextAlign.center,
         style: TextStyle(
@@ -94,7 +78,7 @@ class _ServicesSelectedState extends State<ServicesSelected> {
         ),
       ),
       style: ElevatedButton.styleFrom(
-        shape: RoundedRectangleBorder(),
+        shape: const RoundedRectangleBorder(),
         shadowColor: Colors.black,
         backgroundColor: Colors.brown.withOpacity(0.4),
       ),
