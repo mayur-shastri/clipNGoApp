@@ -1,8 +1,20 @@
 import 'package:flutter/material.dart';
 
-class FavouritesItem extends StatelessWidget {
-  const FavouritesItem({super.key, required this.imageURL});
-  final String imageURL;
+class FavouritesItem extends StatefulWidget {
+  const FavouritesItem({
+    super.key,
+    required this.salonDetails,
+    required this.refreshFavouritesPage,
+  });
+  final Map<String, dynamic> salonDetails;
+  final void Function({Map<String, dynamic> removeSalon}) refreshFavouritesPage;
+
+  @override
+  State<FavouritesItem> createState() => _FavouritesItemState();
+}
+
+class _FavouritesItemState extends State<FavouritesItem> {
+  bool _isFavourite = true;
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -23,17 +35,23 @@ class FavouritesItem extends StatelessWidget {
                   ),
                   child: Image(
                     fit: BoxFit.cover,
-                    image: NetworkImage(imageURL),
+                    image: NetworkImage(widget.salonDetails['image']),
                   ),
                 ),
                 Positioned(
                   right: 0,
                   child: CircleAvatar(
                     child: IconButton(
-                      onPressed: () {},
-                      icon: const Icon(
+                      onPressed: () {
+                        setState(() {
+                          _isFavourite = !_isFavourite;
+                          widget.refreshFavouritesPage(
+                              removeSalon: widget.salonDetails);
+                        });
+                      },
+                      icon: Icon(
                         Icons.favorite,
-                        color: Colors.red,
+                        color: _isFavourite ? Colors.red : Colors.grey,
                       ),
                     ),
                   ),
@@ -49,7 +67,7 @@ class FavouritesItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Loreal Paris',
+                    widget.salonDetails['name'],
                     style: Theme.of(context).textTheme.headlineMedium,
                   ),
                   const Text('5 stars'),

@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class ContactUs extends StatefulWidget {
@@ -9,10 +11,10 @@ class ContactUs extends StatefulWidget {
 
 class _ContactUsState extends State<ContactUs> {
   bool _feedbackSubmitted = true;
-
+  final _feedbackController = TextEditingController();
   @override
   void initState() {
-    bool _feedbackSubmitted = true;
+    _feedbackSubmitted = true;
     super.initState();
   }
 
@@ -101,6 +103,7 @@ class _ContactUsState extends State<ContactUs> {
                       ),
                     )
                   : TextField(
+                      controller: _feedbackController,
                       maxLines: 5,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
@@ -125,6 +128,10 @@ class _ContactUsState extends State<ContactUs> {
                     backgroundColor: MaterialStateProperty.all(Colors.black),
                   ),
                   onPressed: () {
+                    FirebaseFirestore.instance.collection('feedback').add({
+                      'user-id': FirebaseAuth.instance.currentUser!.uid,
+                      'feedback': _feedbackController.text,
+                    });
                     setState(() {
                       _feedbackSubmitted = !_feedbackSubmitted;
                     });

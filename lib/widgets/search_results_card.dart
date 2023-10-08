@@ -16,37 +16,40 @@ class SearchResultsCard extends StatelessWidget {
   final Map<String, dynamic> salonDetails;
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (ctx) => BookingScreen(
-              salonDetails: salonDetails,
-            ),
-          ),
-        );
-      },
-      child: Card(
-        child: Row(
-          children: [
-            // image widget,
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: CircleAvatar(
-                backgroundImage: NetworkImage(imageURL),
-                radius: 30,
+    return FocusScope(
+      child: InkWell(
+        onTap: () {
+          FocusScope.of(context).unfocus();
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (ctx) => BookingScreen(
+                salonDetails: salonDetails,
               ),
             ),
-            const SizedBox(
-              width: 30,
-            ),
-            Column(
-              children: [
-                Text(name),
-                Text(isSalon ? "Salon" : "Service"),
-              ],
-            ),
-          ],
+          );
+        },
+        child: Card(
+          child: Row(
+            children: [
+              // image widget,
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: CircleAvatar(
+                  backgroundImage: NetworkImage(imageURL),
+                  radius: 30,
+                ),
+              ),
+              const SizedBox(
+                width: 30,
+              ),
+              Column(
+                children: [
+                  Text(name),
+                  Text(isSalon ? "Salon" : "Service"),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:salon_app/widgets/booking%20items/services_selected.dart';
 import 'package:salon_app/widgets/booking items/time_slot.dart';
@@ -15,6 +16,40 @@ class _BookingScreenState extends State<BookingScreen> {
   List<Map> servicesSelected = [];
   DateTime? selectedDateAndTime;
   bool canLeaveScreen = false;
+  bool isFavourite = false;
+
+  void checkFavouriteStatus() async {
+    final userDocSnapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get();
+    if (userDocSnapshot
+        .data()!['favourites']
+        .contains(widget.salonDetails['id'])) {
+      isFavourite = true;
+    }
+  }
+
+  void toggleFavourite() {
+    setState(() {
+      isFavourite = !isFavourite;
+      if (isFavourite == true) {
+        FirebaseFirestore.instance
+            .collection('users')
+            .doc(FirebaseAuth.instance.currentUser!.uid)
+            .update({
+          'favourites': FieldValue.arrayUnion([widget.salonDetails['id']]),
+        });
+      } else {
+        FirebaseFirestore.instance
+            .collection('users')
+            .doc(FirebaseAuth.instance.currentUser!.uid)
+            .update({
+          'favourites': FieldValue.arrayRemove([widget.salonDetails['id']]),
+        });
+      }
+    });
+  }
 
   Future<bool> _onWillPop() async {
     if (canLeaveScreen) {
@@ -131,6 +166,7 @@ class _BookingScreenState extends State<BookingScreen> {
   void initState() {
     super.initState();
     makeServicesList();
+    checkFavouriteStatus();
   }
 
   @override
@@ -174,10 +210,10 @@ class _BookingScreenState extends State<BookingScreen> {
                 top: 5,
                 child: CircleAvatar(
                   child: IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
+                    onPressed: toggleFavourite,
+                    icon: Icon(
                       Icons.favorite,
-                      color: Colors.red,
+                      color: !isFavourite ? Colors.grey : Colors.red,
                     ),
                   ),
                 ),
