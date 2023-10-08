@@ -1,14 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:salon_app/widgets/booking%20items/booked_modal_sheet.dart';
 import 'package:salon_app/widgets/booking%20items/services_selected.dart';
 import 'package:salon_app/widgets/booking items/time_slot.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class BookingScreen extends StatefulWidget {
-  const BookingScreen({super.key, required this.salonDetails});
+  BookingScreen({
+    super.key,
+    required this.salonDetails,
+    this.resetFavouritesPage,
+  });
   final Map<String, dynamic> salonDetails;
-
+  void Function()? resetFavouritesPage;
   @override
   State<BookingScreen> createState() => _BookingScreenState();
 }
@@ -18,6 +22,7 @@ class _BookingScreenState extends State<BookingScreen> {
   DateTime? selectedDateAndTime;
   bool canLeaveScreen = false;
   bool isFavourite = false;
+  bool buttonEnabled = true;
 
   void checkFavouriteStatus() async {
     final userDocSnapshot = await FirebaseFirestore.instance
@@ -41,6 +46,9 @@ class _BookingScreenState extends State<BookingScreen> {
             .update({
           'favourites': FieldValue.arrayUnion([widget.salonDetails['id']]),
         });
+        if (widget.resetFavouritesPage != null) {
+          widget.resetFavouritesPage!();
+        }
       } else {
         FirebaseFirestore.instance
             .collection('users')
@@ -48,6 +56,9 @@ class _BookingScreenState extends State<BookingScreen> {
             .update({
           'favourites': FieldValue.arrayRemove([widget.salonDetails['id']]),
         });
+        if (widget.resetFavouritesPage != null) {
+          widget.resetFavouritesPage!();
+        }
       }
     });
   }
@@ -138,6 +149,23 @@ class _BookingScreenState extends State<BookingScreen> {
             'booking-id': [bookingDetails]
           });
         }
+        setState(() {
+          buttonEnabled = false;
+          Navigator.of(context).pop();
+          showModalBottomSheet(
+              enableDrag: false,
+              isScrollControlled: true,
+              isDismissible: false,
+              context: context,
+              builder: (ctx) {
+                return SingleChildScrollView(
+                  child: BookedModalSheet(
+                    bookingDetails: bookingDetails,
+                    salonDetails: widget.salonDetails,
+                  ),
+                );
+              });
+        });
       } on FirebaseException catch (e) {
         showDialog(
             context: context,
@@ -233,11 +261,11 @@ class _BookingScreenState extends State<BookingScreen> {
             ]),
           ),
           const SizedBox(height: 10),
-          Text('Book in 3 easy steps',
-              style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 21,
-                  color: Colors.brown)),
+          Text(
+            'Book in 3 easy steps',
+            style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                fontWeight: FontWeight.bold, fontSize: 21, color: Colors.brown),
+          ),
           Padding(
             padding: const EdgeInsets.all(10),
             child: Row(
@@ -295,7 +323,7 @@ class _BookingScreenState extends State<BookingScreen> {
                   child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: ElevatedButton(
-                    onPressed: _requestBooking,
+                    onPressed: buttonEnabled ? _requestBooking : null,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color.fromARGB(255, 147, 61, 30),
                       shape: const BeveledRectangleBorder(),

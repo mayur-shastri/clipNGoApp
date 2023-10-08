@@ -12,8 +12,6 @@ class MyCarouselSlider extends StatefulWidget {
 
 class _MyCarouselSliderState extends State<MyCarouselSlider> {
   final _cloud = FirebaseFirestore.instance;
-  List<dynamic> listOfPromotionImages = [];
-  List<dynamic> listOfPromotionRedirects = [];
   Map<String, dynamic>? imageLinkRedirectLinkpairs = {};
   void loadImageLinks() async {
     try {
@@ -21,8 +19,6 @@ class _MyCarouselSliderState extends State<MyCarouselSlider> {
 
       setState(() {
         imageLinkRedirectLinkpairs = Doc.data();
-        listOfPromotionImages = imageLinkRedirectLinkpairs!.keys.toList();
-        listOfPromotionRedirects = imageLinkRedirectLinkpairs!.values.toList();
       });
     } on FirebaseException catch (e) {
       print('Error loading images: ${e.message}');
