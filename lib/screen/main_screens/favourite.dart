@@ -1,37 +1,92 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:salon_app/widgets/dashboard%20items/search_bar.dart';
 import 'package:salon_app/widgets/user%20related/favourites_item.dart';
 
-List<Map<String, dynamic>> favouriteSalons = [];
-
-class MyFavourites extends StatelessWidget {
+class MyFavourites extends StatefulWidget {
   const MyFavourites({super.key});
+
+  @override
+  State<MyFavourites> createState() => _MyFavouritesState();
+}
+
+class _MyFavouritesState extends State<MyFavourites> {
+  bool _isLoading = false;
+  List<Map<String, dynamic>> favouriteSalons = [];
+  final _cloud = FirebaseFirestore.instance;
+  final _auth = FirebaseAuth.instance;
+
+  void fetchFavouriteSalons({removeSalon}) async {
+    favouriteSalons.clear();
+    setState(() {
+      _isLoading = true;
+    });
+    final userSnapshot =
+        await _cloud.collection('users').doc(_auth.currentUser!.uid).get();
+    final favouriteSalonIdsList = userSnapshot.data()!['favourites'];
+    if (favouriteSalonIdsList.isEmpty) {
+      setState(() {
+        _isLoading = false;
+      });
+      return;
+    }
+    if (removeSalon != null) {
+      favouriteSalonIdsList.remove(removeSalon['id']);
+      await _cloud.collection('users').doc(_auth.currentUser!.uid).update({
+        'favourites': FieldValue.arrayRemove([removeSalon['id']])
+      });
+      if (favouriteSalonIdsList.isEmpty) {
+        setState(() {
+          _isLoading = false;
+        });
+        return;
+      }
+    }
+    for (final id in favouriteSalonIdsList) {
+      final salonSnapshot =
+          await _cloud.collection('email-salons').doc(id).get();
+      final salonData = salonSnapshot.data();
+      if (salonData != null && !favouriteSalons.contains(salonData)) {
+        setState(() {
+          favouriteSalons.add(salonData);
+          _isLoading = false;
+        });
+        print(favouriteSalons);
+      } else {
+        continue;
+      }
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchFavouriteSalons();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        //     child: Text(
-        //   'Favourites',
-        //   style: Theme.of(context)
-        //       .textTheme
-        //       .headlineLarge!
-        //       .copyWith(color: Theme.of(context).colorScheme.primary),
-        // )
         const MySearchBar(isMainPage: false, isFavouritesPage: true),
         Expanded(
-          child: ListView(
-            children: const [
-              FavouritesItem(
-                imageURL:
-                    'https://media.istockphoto.com/id/1423513079/photo/luxury-hairdressing-and-beauty-salon-interior-with-chairs-mirrors-and-spotlights.webp?b=1&s=170667a&w=0&k=20&c=GTjjLjO1c9SdAGLLJHL3n5sEDdP8dpVXXl3ZpysmxeM=',
-              ),
-              FavouritesItem(
-                imageURL:
-                    'https://i.pinimg.com/736x/cc/2d/8e/cc2d8ed6ab6b15422ec9defcb65ee0ec.jpg',
-              ),
-            ],
-          ),
+          child: _isLoading
+              ? const Center(
+                  child: CircularProgressIndicator(),
+                )
+              : favouriteSalons.isEmpty
+                  ? const Center(
+                      child: Text('No Favourites yet'),
+                    )
+                  : ListView.builder(
+                      itemCount: favouriteSalons.length,
+                      itemBuilder: (ctx, index) {
+                        return FavouritesItem(
+                          salonDetails: favouriteSalons[index],
+                          refreshFavouritesPage: fetchFavouriteSalons,
+                        );
+                      }),
         ),
       ],
     );

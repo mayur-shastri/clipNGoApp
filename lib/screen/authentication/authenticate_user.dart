@@ -103,7 +103,9 @@ class _EnterPhoneNumState extends ConsumerState<EnterPhoneNum> {
           'address': '',
           'email': '',
           'mob-no': _selectedCountryCode + phoneNumber.text,
-          'age': ''
+          'age': '',
+          'favourites': [],
+          'pastBookings': [],
         });
       }
       if (!uidSnapshot.exists) {

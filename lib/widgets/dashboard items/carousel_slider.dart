@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MyCarouselSlider extends StatefulWidget {
   const MyCarouselSlider({super.key});
@@ -12,13 +13,16 @@ class MyCarouselSlider extends StatefulWidget {
 class _MyCarouselSliderState extends State<MyCarouselSlider> {
   final _cloud = FirebaseFirestore.instance;
   List<dynamic> listOfPromotionImages = [];
+  List<dynamic> listOfPromotionRedirects = [];
+  Map<String, dynamic>? imageLinkRedirectLinkpairs = {};
   void loadImageLinks() async {
     try {
-      final Doc =
-          await _cloud.collection('images-link-promotion').doc('only').get();
+      final Doc = await _cloud.collection('promotions').doc('only').get();
 
       setState(() {
-        listOfPromotionImages = Doc.data()!['links'];
+        imageLinkRedirectLinkpairs = Doc.data();
+        listOfPromotionImages = imageLinkRedirectLinkpairs!.keys.toList();
+        listOfPromotionRedirects = imageLinkRedirectLinkpairs!.values.toList();
       });
     } on FirebaseException catch (e) {
       print('Error loading images: ${e.message}');
@@ -51,7 +55,9 @@ class _MyCarouselSliderState extends State<MyCarouselSlider> {
           enlargeCenterPage: true,
           enableInfiniteScroll: true,
         ),
-        items: listOfPromotionImages.map((image) {
+        items: imageLinkRedirectLinkpairs!.entries.map((pair) {
+          final image = pair.key;
+          final redirect = pair.value;
           return Builder(
             builder: (BuildContext context) {
               return Container(
@@ -60,7 +66,18 @@ class _MyCarouselSliderState extends State<MyCarouselSlider> {
                 decoration: const BoxDecoration(
                   color: Colors.transparent,
                 ),
-                child: Image(image: NetworkImage(image)),
+                child: InkWell(
+                  onTap: () async {
+                    Uri uriLink = Uri.parse(redirect);
+                    launchUrl(
+                      uriLink,
+                      mode: LaunchMode.inAppWebView,
+                    );
+                  },
+                  child: Image(
+                    image: NetworkImage(image),
+                  ),
+                ),
               );
             },
           );
