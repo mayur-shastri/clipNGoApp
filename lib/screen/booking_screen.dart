@@ -123,13 +123,19 @@ class _BookingScreenState extends State<BookingScreen> {
           'salon-name': widget.salonDetails['name'],
           'user-id': FirebaseAuth.instance.currentUser!.uid,
           'price': servicesSelected.fold(
-              0, (sum, service) => sum + service['price'] as int),
+              0,
+              (sum, service) =>
+                  sum +
+                  (service['selected'] as bool ? service['price'] as int : 0)),
           'services':
               servicesSelected.where((service) => service['selected']).toList(),
           'date-time': selectedDateAndTime,
           'status': 'pending',
           'uid': const Uuid().v4(),
         };
+        print('*******************************');
+        print(servicesSelected);
+        print('*******************************');
         final fetchedLists = await FirebaseFirestore.instance
             .collection('current-bookings')
             .doc(widget.salonDetails['id'])
